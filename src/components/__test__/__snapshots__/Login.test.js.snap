@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> matches snapshot 1`] = `
+<div>
+  <div
+    class="sc-bdVaJa NFzwl"
+  >
+    <div
+      class="sc-bwzfXH aKgAa"
+    >
+      <h2>
+        Log in to get access to your board
+      </h2>
+      <form
+        class="ui form"
+      >
+        <div
+          class="field"
+        >
+          <div
+            class="ui pointing below label"
+            for="email"
+          >
+            Your Email
+          </div>
+          <div
+            class="ui input"
+          >
+            <input
+              id="email"
+              placeholder="Your email..."
+              type="text"
+              value="testdrive@react-trello.com"
+            />
+          </div>
+        </div>
+        <div
+          class="ui divider"
+        />
+        <div
+          class="field"
+        >
+          <div
+            class="ui pointing below label"
+            for="password"
+          >
+            Your Password
+          </div>
+          <div
+            class="ui input"
+          >
+            <input
+              id="password"
+              placeholder="Your password..."
+              type="password"
+              value="testdrive"
+            />
+          </div>
+        </div>
+        <button
+          class="ui disabled button outline"
+          disabled=""
+          role="button"
+          tabindex="-1"
+          type="button"
+        >
+          Reset
+        </button>
+        <button
+          class="ui button"
+          role="button"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+      <br />
+    </div>
+  </div>
+</div>
+`;
