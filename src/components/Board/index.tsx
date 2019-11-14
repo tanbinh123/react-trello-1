@@ -49,6 +49,7 @@ const Board: React.FC<Props> = props => {
 
     setItemsMap(newItemsMap);
     setOrderedListKeys(newOrderedListKeys);
+    // TODO throw instead of returning boolean
     return true;
   };
 

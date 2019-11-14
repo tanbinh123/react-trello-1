@@ -2,7 +2,6 @@ import {Auth} from 'aws-amplify'
 import React, {Component, Fragment} from 'react'
 import {Button, Divider, Form, Input, Label} from 'semantic-ui-react'
 import styled from 'styled-components'
-// import { connect } from 'react-redux'
 
 const SignupWrapper = styled.section`
   flex: 1;

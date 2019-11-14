@@ -1,50 +1,48 @@
-import * as React from 'react'
-import {Input} from 'semantic-ui-react';
+import * as React from "react";
+import { Input } from "semantic-ui-react";
 
-export default class AddList extends React.Component<any> {
-  state = { text: '' }
-
-  // handleFocus = () => {}
-
-  handleBlur = () => {
-    // this.setState({ text: '' })
-  }
-
-  handleChange = e => {
-    console.log('handlechange')
-    this.setState({ text: e.target.value })
-  }
-
-  handleSubmit = e => {
-    console.log('handlesubmit')
-    const { text } = this.state
-    e.preventDefault()
-    if (this.props.addList(text)) {
-      this.setState({ text: '' })
-    } else {
-      alert(`List name ${text} is already taken. Please choose another name.`)
-    }
-  }
-  render() {
-    return (
-      <div
-        style={{
-          display: 'inline',
-          margin: '0 0 0 13px',
-        }}
-      >
-        <form onSubmit={this.handleSubmit} style={{ display: 'inline' }}>
-          <Input
-            type="text"
-            style={{background: 'rgba(255,255,255,0.1)'}}
-            placeholder={this.props.placeholder || 'Add a list...'}
-            onChange={this.handleChange}
-            // onFocus={() => console.log('focus')}
-            onBlur={this.handleBlur}
-            value={this.state.text}
-          />
-        </form>
-      </div>
-    )
-  }
+type Props = {
+  addList(text: string): boolean,
+  placeholder?: string
 }
+
+const AddList: React.FC<Props> = props => {
+  const { addList, placeholder } = props;
+  const [text, setText] = React.useState<string>("");
+
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handlechange");
+    setText(evt.target.value);
+  };
+
+  const handleSubmit = (evt: React.FormEvent) => {
+    console.log("handlesubmit");
+
+    evt.preventDefault();
+    if (addList(text)) {
+      setText("");
+    } else {
+      alert(`List name ${text} is already taken. Please choose another name.`);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        display: "inline",
+        margin: "0 0 0 13px",
+      }}>
+      <form onSubmit={handleSubmit} style={{ display: "inline" }}>
+        <Input
+          type="text"
+          style={{ background: "rgba(255,255,255,0.1)" }}
+          placeholder={placeholder || "Add a list..."}
+          onChange={handleChange}
+          value={text}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default AddList;
