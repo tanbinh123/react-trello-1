@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const grid = 4;
 
-const getItemStyle = (isDragging, draggableStyle) => ({
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   // some basic styles to make the items look a bit nicer
   borderRadius: "5px",
   margin: `0 0 ${grid}px 0`,

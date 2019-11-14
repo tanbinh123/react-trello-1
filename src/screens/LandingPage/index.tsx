@@ -19,7 +19,12 @@ import MobileContainer from './MobileContainer';
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
-export const HomepageHeading = ({ mobile }) => (
+
+ type Props = {
+   mobile?: boolean
+ }
+
+export const HomepageHeading: React.FC<Props> = ({ mobile }) => (
   <Container text={true}>
     <Header
       as="h1"
@@ -123,8 +128,10 @@ class DesktopContainer extends React.Component<any, any> {
 //   children: PropTypes.node,
 // }
 
-
-const ResponsiveContainer = ({ children }) => (
+type ResponsiveContainerProps = {
+  children: JSX.Element
+}
+const ResponsiveContainer: React.FC<Props> = ({ children }) => (
   <div>
     <DesktopContainer>{children}</DesktopContainer>
     <MobileContainer>{children}</MobileContainer>
@@ -135,8 +142,9 @@ const ResponsiveContainer = ({ children }) => (
 //   children: PropTypes.node,
 // }
 
-const HomepageLayout = () => (
+const HomepageLayout: React.FC = () => (
   <ResponsiveContainer>
+    
     {/* <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign="middle">
         <Grid.Row>

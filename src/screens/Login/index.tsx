@@ -1,6 +1,6 @@
-import {  Formik } from "formik";
+import { Formik } from "formik";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import {
   Button,
@@ -14,26 +14,34 @@ import {
 
 import * as S from "./styles";
 
-const Login = props => {
-  const handleLogin = async ({email, password}) => {
+type Props = {} & RouteComponentProps;
+
+const Login: React.FC<Props> = props => {
+  const handleLogin: (input: {
+    email: string;
+    password: string;
+  }) => Promise<any> = async ({ email, password }) => {
     try {
-      await Auth.signIn(email, password)
-    //   if (signInData) {
-    //     this.setState({isLoggedIn: true})
-    //   }
-      props.history.push('/app')
+      await Auth.signIn(email, password);
+      //   if (signInData) {
+      //     this.setState({isLoggedIn: true})
+      //   }
+      props.history.push("/app");
     } catch (error) {
-      console.log(error)
-      return error
+      console.log(error);
+      return error;
     }
-  }
-  
+  };
+
   return (
     <S.OuterWrapper>
       <S.InnerWrapper>
         <h2>Log in to get access to your board</h2>
         <Formik
-          initialValues={{ email: "testdrive@react-trello.com", password: "testdrive" }}
+          initialValues={{
+            email: "testdrive@react-trello.com",
+            password: "testdrive",
+          }}
           onSubmit={async ({ email, password }, { setSubmitting }) => {
             setSubmitting(true);
             const error = await handleLogin({ email, password });
@@ -83,57 +91,59 @@ const Login = props => {
               );
             }
 
-            return (<Form onSubmit={handleSubmit}>
-              <Form.Field>
-                <Label pointing="below" htmlFor="email">
-                  Your Email
-                </Label>
-                <Input
-                  id="email"
-                  type="text"
-                  placeholder="Your email..."
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.email && touched.email && (
-                  <S.Warning>A valid email is required</S.Warning>
+            return (
+              <Form onSubmit={handleSubmit}>
+                <Form.Field>
+                  <Label pointing="below" htmlFor="email">
+                    Your Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="text"
+                    placeholder="Your email..."
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.email && touched.email && (
+                    <S.Warning>A valid email is required</S.Warning>
+                  )}
+                </Form.Field>
+                <Divider />
+                <Form.Field>
+                  <Label pointing="below" htmlFor="password">
+                    Your Password
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Your password..."
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.password && touched.password && (
+                    <S.Warning>Enter your password</S.Warning>
+                  )}
+                </Form.Field>
+                <Button
+                  type="button"
+                  className="outline"
+                  onClick={handleReset}
+                  disabled={!dirty || isSubmitting}>
+                  Reset
+                </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  Submit
+                </Button>
+                {errors && (
+                  <h2>
+                    No such user found. Maybe try{" "}
+                    <Link to="/signup">signing up</Link>
+                  </h2>
                 )}
-              </Form.Field>
-              <Divider />
-              <Form.Field>
-                <Label pointing="below" htmlFor="password">
-                  Your Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Your password..."
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.password && touched.password && (
-                  <S.Warning>Enter your password</S.Warning>
-                )}
-              </Form.Field>
-              <Button
-                type="button"
-                className="outline"
-                onClick={handleReset}
-                disabled={!dirty || isSubmitting}>
-                Reset
-              </Button>
-              <Button type="submit" disabled={isSubmitting}>
-                Submit
-              </Button>
-              {errors && (
-                <h2>
-                  No such user found. Maybe try{" "}
-                  <Link to="/signup">signing up</Link>
-                </h2>
-              )}
-            </Form>)
+              </Form>
+            );
           }}
         </Formik>
         <br />

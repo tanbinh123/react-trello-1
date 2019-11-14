@@ -26,7 +26,7 @@ const Header = styled('div')<IMyHeaderProps>`
   justify-content: space-between;
 `
 
-const getListStyle = isDraggingOver => ({
+const getListStyle = (isDraggingOver: boolean) => ({
   background: isDraggingOver ? 'lightblue' : '#e2e4e6',
   margin: '5px',
   padding: grid,
@@ -35,7 +35,7 @@ const getListStyle = isDraggingOver => ({
 
 type Props = {
   id: string,
-  items: any,
+  items: any[],
   index: number,
   changeCard: any,
   addCard: any,

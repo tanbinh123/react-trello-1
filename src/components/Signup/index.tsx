@@ -20,12 +20,12 @@ class Signup extends Component<any, any> {
     password: '',
   }
 
-  handleChange = event => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({[event.target.id]: event.target.value})
   }
 
-  handleSubmit = async e => {
-    e.preventDefault()
+  handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault()
     this.setState({isLoading: true})
     try {
       const newUser = Auth.signUp({
@@ -39,7 +39,7 @@ class Signup extends Component<any, any> {
     this.setState({isLoading: false})
   }
 
-  handleConfirmationSubmit = async event => {
+  handleConfirmationSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     this.setState({isLoading: true})

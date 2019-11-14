@@ -20,10 +20,10 @@ type State = {
 };
 
 const Board: React.FC<Props> = props => {
-  const [itemsMap, setItemsMap] = React.useState({});
+  const [itemsMap, setItemsMap] = React.useState<{[key: string]: any}>({});
   const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([]);
 
-  const addCard: (listId: string, card: any) => void = (listId, card) => {
+  const addCard: (listId: string, card: object) => void = (listId, card) => {
     setItemsMap({
       ...itemsMap,
       [listId]: [...itemsMap[listId], card],
