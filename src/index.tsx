@@ -8,13 +8,11 @@ import {Helmet} from 'react-helmet'
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 
-import LandingPage from "./screens/LandingPage";
 import * as serviceWorker from "./serviceWorker";
 import awsConfig from "./aws_amplify";
 import Signup from "./components/Signup";
 import ProtectedRoute from "./ProtectedRoute";
-import Home  from "./screens/Home";
-import Login from "./screens/Login";
+import { LandingPage, Home, Login } from "./screens";
 
 Amplify.configure(awsConfig);
 

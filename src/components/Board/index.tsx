@@ -7,7 +7,7 @@ import {
 } from "react-beautiful-dnd";
 import { Label } from "semantic-ui-react";
 
-import Column from "./Column";
+import { List } from "../";
 import InputAddColumn from "./InputAddColumn";
 import * as S from "./styles";
 import { reorderMultiple, reorderSingleList } from "./utils";
@@ -133,7 +133,7 @@ const Board: React.FC<Props> = props => {
                   {...provided.droppableProps}>
                   {orderedListKeys.map((key, index) => {
                     return (
-                      <Column
+                      <List
                         id={key}
                         index={index}
                         key={key}

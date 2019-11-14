@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import {Button, Popup} from 'semantic-ui-react'
 // import styled, {StyledFunction, StyledProps} from 'styled-components'
   
-import Card from './Card' 
-import AddCard from './InputAddCard'
+import Card from '../Card' 
+import AddCard from '../Board/InputAddCard'
 
 const grid = 8
 
