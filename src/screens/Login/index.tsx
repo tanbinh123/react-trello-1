@@ -1,4 +1,4 @@
-import { withFormik, Formik } from "formik";
+import {  Formik } from "formik";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
@@ -10,19 +10,14 @@ import {
   Label,
   Progress,
 } from "semantic-ui-react";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 import * as S from "./styles";
 
 const Login = props => {
-  const {
-
-    // handleLogin
-  } = props; 
-
   const handleLogin = async ({email, password}) => {
     try {
-      const signInData = await Auth.signIn(email, password)
+      await Auth.signIn(email, password)
     //   if (signInData) {
     //     this.setState({isLoggedIn: true})
     //   }

@@ -9,7 +9,6 @@ import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 
 import LandingPage from "./screens/LandingPage";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import awsConfig from "./aws_amplify";
 import Signup from "./components/Signup";

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import Board from "../../components/Board";
-import LandingPage from "../LandingPage";
+// import LandingPage from "../LandingPage";
 import Navbar from "../../components/Navbar";
 
 type Props = {

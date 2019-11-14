@@ -43,13 +43,15 @@ type Props = {
   addList: any,
   removeColumn: any,
 }
-export default class Column extends React.Component<Props> {
-  handleDelete = () => {
+
+const Column:React.FC<Props> = props => {
+  const {id, items, index, changeCard, removeCard} = props
+
+  const handleDelete = () => {
     console.log('handledelete')
-    this.props.removeColumn(this.props.id)
+    props.removeColumn(id)
   }
-  render() {
-    const {id, items, index, changeCard, removeCard} = this.props
+ 
     return (
       <div style={{margin: '5px'}}>
         <Draggable draggableId={id} index={index}>
@@ -67,7 +69,7 @@ export default class Column extends React.Component<Props> {
                   <span style={{display: 'flex', alignItems: 'center'}}>
                     {id}
                   </span>
-                  <span onClick={this.handleDelete}>
+                  <span onClick={handleDelete}>
                     <Popup
                       trigger={<Button icon="delete" />}
                       content="delete this list"
@@ -94,7 +96,7 @@ export default class Column extends React.Component<Props> {
                           ))}
                           {droppableProvided.placeholder}
                         </div>
-                        <AddCard addNewCard={this.props.addCard} listId={id} />
+                        <AddCard addNewCard={props.addCard} listId={id} />
                       </div>
                     )
                   }}
@@ -106,4 +108,5 @@ export default class Column extends React.Component<Props> {
       </div>
     )
   }
-}
+
+  export default Column

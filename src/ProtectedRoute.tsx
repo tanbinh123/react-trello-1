@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   withRouter,
-  Switch,
   Route,
   Redirect,
-  BrowserRouter as Router,
 } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
@@ -27,9 +25,9 @@ const ProtectedRoute = (props: any) => {
       setLoaded(true);
     };
     checkUser();
-  }, []);
+  }, [props.history]);
 
-  // const { loaded , isAuthenticated} = this.state
+
   if (!loaded) return <div>hanging out</div>;
 
   return (

@@ -12,50 +12,47 @@ import InputAddColumn from "./InputAddColumn";
 import * as S from "./styles";
 import { reorderMultiple, reorderSingleList } from "./utils";
 
+type Props = {};
+
 type State = {
   itemsMap: any;
   orderedListKeys: string[];
 };
 
-type Props = {};
-class Board extends React.Component<Props, State> {
-  state: State = {
-    itemsMap: {},
-    orderedListKeys: [],
+const Board: React.FC<Props> = props => {
+  const [itemsMap, setItemsMap] = React.useState({});
+  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([]);
+
+  const addCard: (listId: string, card: any) => void = (listId, card) => {
+    setItemsMap({
+      ...itemsMap,
+      [listId]: [...itemsMap[listId], card],
+    });
   };
 
-  addCard: (listId: string, card: any) => void = (listId, card) => {
-    const itemsMap = {
-      ...this.state.itemsMap,
-      [listId]: [...this.state.itemsMap[listId], card],
-    };
-    this.setState({ itemsMap });
-  };
-
-  changeCard = (listId: string, index: number, newName: string) => {
+  const changeCard = (listId: string, index: number, newName: string) => {
     console.log("changecard", listId, index, newName);
   };
 
-  removeCard = (listId, index) => {
-    const { itemsMap } = this.state;
+  const removeCard = (listId: string, index: number) => {
     itemsMap[listId].splice(index, 1);
-    this.setState(itemsMap);
+    setItemsMap(itemsMap);
   };
 
-  addColumn = (listName: string) => {
+  const addColumn = (listName: string) => {
     console.log("addList", listName);
-    const { itemsMap, orderedListKeys } = this.state;
     if (orderedListKeys.includes(listName)) {
       return false;
     }
-    itemsMap[listName] = [];
-    orderedListKeys.push(listName);
-    this.setState({ itemsMap, orderedListKeys });
+    const newItemsMap = { ...itemsMap, [listName]: [] };
+    const newOrderedListKeys = [...orderedListKeys, listName];
+
+    setItemsMap(newItemsMap);
+    setOrderedListKeys(newOrderedListKeys);
     return true;
   };
 
-  removeColumn = (listId: string) => {
-    const { orderedListKeys, itemsMap } = this.state;
+  const removeColumn = (listId: string) => {
     const index = orderedListKeys.findIndex(key => key === listId);
     if (index === undefined || !(listId in itemsMap)) {
       // debugger
@@ -63,10 +60,11 @@ class Board extends React.Component<Props, State> {
     orderedListKeys.splice(index, 1);
     delete itemsMap[listId];
 
-    this.setState({ orderedListKeys, itemsMap });
+    setItemsMap(itemsMap);
+    setOrderedListKeys(orderedListKeys);
   };
 
-  onDragEnd: OnDragEndResponder = result => {
+  const onDragEnd: OnDragEndResponder = result => {
     const { source, destination } = result;
 
     // dropped outside the list
@@ -75,25 +73,19 @@ class Board extends React.Component<Props, State> {
     }
 
     if (result.type === "COLUMN") {
-      const orderedListKeys = reorderSingleList(
-        this.state.orderedListKeys,
+      const newOrderedListKeys = reorderSingleList(
+        orderedListKeys,
         source.index,
         destination.index,
       );
-
-      return this.setState({
-        orderedListKeys,
-      });
+      return setOrderedListKeys(newOrderedListKeys);
     }
 
-    const { items } = reorderMultiple(this.state.itemsMap, source, destination);
-
-    this.setState({
-      itemsMap: items,
-    });
+    const { items } = reorderMultiple(itemsMap, source, destination);
+    setItemsMap(items);
   };
 
-  renderWalkthrough = () => {
+  const renderWalkthrough = () => {
     return (
       <div
         style={{
@@ -112,7 +104,7 @@ class Board extends React.Component<Props, State> {
           <h2>Welcome!</h2>
           <p>Let's get started creating your first list!</p>
           <InputAddColumn
-            addList={this.addColumn}
+            addList={addColumn}
             placeholder="Enter your list name..."
           />
           <Label style={{ width: "fit-content" }} pointing="above">
@@ -123,47 +115,45 @@ class Board extends React.Component<Props, State> {
     );
   };
 
-  render() {
-    const { itemsMap, orderedListKeys } = this.state;
-    if (orderedListKeys.length === 0) {
-      return this.renderWalkthrough();
-    }
-    return (
-      <React.Fragment>
-        <div style={{ flex: 1 }}>
-          <DragDropContext
-            // onDragStart={this.onDragStart}
-            onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="board" type="COLUMN" direction="horizontal">
-              {(provided, snapshot) => {
-                return (
-                  <S.BoardWrapper
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}>
-                    {orderedListKeys.map((key, index) => {
-                      return (
-                        <Column
-                          id={key}
-                          index={index}
-                          key={key}
-                          items={itemsMap[key]}
-                          addCard={this.addCard}
-                          changeCard={this.changeCard}
-                          removeCard={this.removeCard}
-                          addList={this.addColumn}
-                          removeColumn={this.removeColumn}
-                        />
-                      );
-                    })}
-                  </S.BoardWrapper>
-                );
-              }}
-            </Droppable>
-          </DragDropContext>
-          <InputAddColumn addList={this.addColumn} />
-        </div>
-      </React.Fragment>
-    );
+  if (orderedListKeys.length === 0) {
+    return renderWalkthrough();
   }
-}
+  return (
+    <React.Fragment>
+      <div style={{ flex: 1 }}>
+        <DragDropContext
+          // onDragStart={this.onDragStart}
+          onDragEnd={onDragEnd}>
+          <Droppable droppableId="board" type="COLUMN" direction="horizontal">
+            {provided => {
+              return (
+                <S.BoardWrapper
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}>
+                  {orderedListKeys.map((key, index) => {
+                    return (
+                      <Column
+                        id={key}
+                        index={index}
+                        key={key}
+                        items={itemsMap[key]}
+                        addCard={addCard}
+                        changeCard={changeCard}
+                        removeCard={removeCard}
+                        addList={addColumn}
+                        removeColumn={removeColumn}
+                      />
+                    );
+                  })}
+                </S.BoardWrapper>
+              );
+            }}
+          </Droppable>
+        </DragDropContext>
+        <InputAddColumn addList={addColumn} />
+      </div>
+    </React.Fragment>
+  );
+};
+
 export default Board;
