@@ -6,7 +6,7 @@ import { Button } from "semantic-ui-react";
 // const logo = require('../../assets/logo.png')
 import * as S from "./styles";
 
-import { handleLogout } from "../../utils/utils";
+import { handleLogout } from "../../utils";
 
 const Navbar = () => {
   return (
