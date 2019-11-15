@@ -9,7 +9,7 @@ import {
   Input,
   Label,
   Progress,
-} from 'semantic-ui-react'
+} from '../../components'
 // import * as Yup from "yup";
 
 import * as S from './styles'

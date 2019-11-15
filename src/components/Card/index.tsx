@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { Button, Popup } from 'semantic-ui-react'
+import { Button, Popup } from '../'
 import styled from 'styled-components'
 
 export type TCard = {

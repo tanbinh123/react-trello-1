@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify'
 import React, { Fragment, useState } from 'react'
-import { Button, Divider, Form, Input, Label } from 'semantic-ui-react'
+import { Button, Divider, Form, Input, Label } from '..'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 

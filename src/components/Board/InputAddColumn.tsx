@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Input } from 'semantic-ui-react'
+
+import { Input } from '../'
 
 type Props = {
   addList(text: string): boolean

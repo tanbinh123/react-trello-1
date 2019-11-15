@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
-import { Button, Popup } from 'semantic-ui-react'
+import { Button, Popup } from '..'
 // import styled, {StyledFunction, StyledProps} from 'styled-components'
 
 import Card, { TCard } from '../Card'

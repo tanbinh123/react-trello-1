@@ -8,8 +8,9 @@ import {
   Responsive,
   Segment,
   Sidebar,
+  
   // Visibility,
-} from 'semantic-ui-react'
+} from '../../components'
 
 import { HomepageHeading } from './index'
 

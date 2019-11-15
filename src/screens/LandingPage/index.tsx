@@ -11,7 +11,7 @@ import {
   Segment,
   // Sidebar,
   Visibility,
-} from 'semantic-ui-react'
+} from '../../components'
 
 import MobileContainer from './MobileContainer'
 

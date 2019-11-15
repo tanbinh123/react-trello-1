@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input } from '..'
 import { v4 } from 'uuid'
 import { TCard } from '../Card'
 

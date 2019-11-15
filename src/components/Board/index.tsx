@@ -5,7 +5,6 @@ import {
   Droppable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd'
-// import { Label } from 'semantic-ui-react'
 
 import { List } from '../'
 import InputAddColumn from './InputAddColumn'
