@@ -1,9 +1,10 @@
 import * as React from 'react'
 import {Input} from 'semantic-ui-react';
 import { v4 } from 'uuid'
+import { TCard } from '../Card';
 
 type Props = {
-  addNewCard: any,
+  addNewCard(listId: string, card: TCard): void,
   listId: string
 }
 const AddCard: React.FC<Props> = props => {

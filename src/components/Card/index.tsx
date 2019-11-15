@@ -3,6 +3,11 @@ import { Draggable } from "react-beautiful-dnd";
 import { Button, Popup } from "semantic-ui-react";
 import styled from "styled-components";
 
+export type TCard = {
+  id: string,
+  content: string
+}
+
 const grid = 4;
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
@@ -25,7 +30,7 @@ const CardName = styled.div`
 `;
 
 type Props = {
-  item: any;
+  item: TCard;
   index: number;
   listId: string;
   changeCard(listId: string, index: number, newName: string): void;

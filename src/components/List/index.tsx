@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {Button, Popup} from 'semantic-ui-react'
 // import styled, {StyledFunction, StyledProps} from 'styled-components'
   
-import Card from '../Card' 
+import Card, {TCard} from '../Card' 
 import AddCard from '../Board/InputAddCard'
 
 const grid = 8
@@ -16,7 +16,7 @@ const ColumnWrapper = styled('div')`
 `
 
 interface IMyHeaderProps {
-  isDragging: any
+  isDragging: boolean
 }
 
 const Header = styled('div')<IMyHeaderProps>`
@@ -35,21 +35,21 @@ const getListStyle = (isDraggingOver: boolean) => ({
 
 type Props = {
   id: string,
-  items: any[],
+  items: TCard[],
   index: number,
-  changeCard: any,
-  addCard: any,
-  removeCard: any,
-  addList: any,
-  removeColumn: any,
+  changeCard(listId: string, index: number, newName: string): void,
+  addCard(listId: string, card: TCard): void,
+  removeCard(listId: string, index: number): void,
+  addList(listName: string): void,
+  removeColumn(id: string): void,
 }
 
 const Column:React.FC<Props> = props => {
-  const {id, items, index, changeCard, removeCard} = props
+  const {id, items, index, changeCard, removeCard, removeColumn} = props
 
   const handleDelete = () => {
     console.log('handledelete')
-    props.removeColumn(id)
+    removeColumn(id)
   }
  
     return (

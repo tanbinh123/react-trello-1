@@ -11,19 +11,15 @@ import { List } from "../";
 import InputAddColumn from "./InputAddColumn";
 import * as S from "./styles";
 import { reorderMultiple, reorderSingleList } from "./utils";
+import { TCard } from "../Card";
 
 type Props = {};
 
-type State = {
-  itemsMap: any;
-  orderedListKeys: string[];
-};
-
 const Board: React.FC<Props> = props => {
-  const [itemsMap, setItemsMap] = React.useState<{[key: string]: any}>({});
+  const [itemsMap, setItemsMap] = React.useState<{[key: string]: TCard[]}>({});
   const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([]);
 
-  const addCard: (listId: string, card: object) => void = (listId, card) => {
+  const addCard: (listId: string, card: TCard) => void = (listId, card) => {
     setItemsMap({
       ...itemsMap,
       [listId]: [...itemsMap[listId], card],
