@@ -5,7 +5,7 @@ import {
   Droppable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd'
-import { Label } from 'semantic-ui-react'
+// import { Label } from 'semantic-ui-react'
 
 import { List } from '../'
 import InputAddColumn from './InputAddColumn'
@@ -15,10 +15,10 @@ import { TCard } from '../Card'
 
 type Props = {}
 
-const tmpItemsMap = {
-  tmp: [{ id: '1', content: 'tmp tmp' }],
-}
-const tmpOrderedListKeys = ['tmp']
+// const tmpItemsMap = {
+//   tmp: [{ id: '1', content: 'tmp tmp' }],
+// }
+// const tmpOrderedListKeys = ['tmp']
 
 const Board: React.FC<Props> = props => {
   const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({})
@@ -89,37 +89,37 @@ const Board: React.FC<Props> = props => {
     setItemsMap(items)
   }
 
-  const renderWalkthrough = () => {
-    return (
-      <div
-        style={{
-          alignItems: 'center',
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <h2>Welcome!</h2>
-          <p>Let's get started creating your first list!</p>
-          <InputAddColumn
-            addList={addColumn}
-            placeholder="Enter your list name..."
-          />
-          <Label style={{ width: 'fit-content' }} pointing="above">
-            Press Enter when finished
-          </Label>
-        </div>
-      </div>
-    )
-  }
+  // const renderWalkthrough = () => {
+  //   return (
+  //     <div
+  //       style={{
+  //         alignItems: 'center',
+  //         display: 'flex',
+  //         flex: 1,
+  //         justifyContent: 'center',
+  //         textAlign: 'center',
+  //       }}
+  //     >
+  //       <div
+  //         style={{
+  //           alignItems: 'center',
+  //           display: 'flex',
+  //           flexDirection: 'column',
+  //         }}
+  //       >
+  //         <h2>Welcome!</h2>
+  //         <p>Let's get started creating your first list!</p>
+  //         <InputAddColumn
+  //           addList={addColumn}
+  //           placeholder="Enter your list name..."
+  //         />
+  //         <Label style={{ width: 'fit-content' }} pointing="above">
+  //           Press Enter when finished
+  //         </Label>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   // if (orderedListKeys.length === 0) {
   //   return renderWalkthrough()
