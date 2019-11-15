@@ -40,6 +40,7 @@ const AddList: React.FC<Props> = props => {
           placeholder={placeholder || 'Add a list...'}
           onChange={handleChange}
           value={text}
+          data-testid="input-addlist"
         />
       </form>
     </div>

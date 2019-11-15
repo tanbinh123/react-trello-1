@@ -48,12 +48,12 @@ const Column: React.FC<Props> = props => {
   const { id, items, index, changeCard, removeCard, removeColumn } = props
 
   const handleDelete = () => {
-    console.log('handledelete')
+    console.log('delete column', id)
     removeColumn(id)
   }
 
   return (
-    <div style={{ margin: '5px' }}>
+    <div style={{ margin: '5px' }} data-testid="list">
       <Draggable draggableId={id} index={index}>
         {(provided, snapshot) => {
           return (
@@ -73,7 +73,9 @@ const Column: React.FC<Props> = props => {
                 </span>
                 <span onClick={handleDelete}>
                   <Popup
-                    trigger={<Button icon="delete" />}
+                    trigger={
+                      <Button icon="delete" data-testid="delete-button-list" />
+                    }
                     content="delete this list"
                   />
                 </span>

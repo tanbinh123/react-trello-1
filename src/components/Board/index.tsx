@@ -15,6 +15,11 @@ import { TCard } from '../Card'
 
 type Props = {}
 
+const tmpItemsMap = {
+  tmp: [{ id: '1', content: 'tmp tmp' }],
+}
+const tmpOrderedListKeys = ['tmp']
+
 const Board: React.FC<Props> = props => {
   const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({})
   const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
@@ -50,14 +55,16 @@ const Board: React.FC<Props> = props => {
   }
 
   const removeColumn = (listId: string) => {
+    debugger
     const index = orderedListKeys.findIndex(key => key === listId)
     if (index === undefined || !(listId in itemsMap)) {
       // debugger
     }
     orderedListKeys.splice(index, 1)
-    delete itemsMap[listId]
+    const newItemsMap = { ...itemsMap }
+    delete newItemsMap[listId]
 
-    setItemsMap(itemsMap)
+    setItemsMap(newItemsMap)
     setOrderedListKeys(orderedListKeys)
   }
 
@@ -114,9 +121,9 @@ const Board: React.FC<Props> = props => {
     )
   }
 
-  if (orderedListKeys.length === 0) {
-    return renderWalkthrough()
-  }
+  // if (orderedListKeys.length === 0) {
+  //   return renderWalkthrough()
+  // }
   return (
     <React.Fragment>
       <div style={{ flex: 1 }}>
