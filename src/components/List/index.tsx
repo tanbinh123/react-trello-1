@@ -57,7 +57,11 @@ const Column: React.FC<Props> = props => {
       <Draggable draggableId={id} index={index}>
         {(provided, snapshot) => {
           return (
-            <ColumnWrapper ref={provided.innerRef} {...provided.draggableProps}>
+            <div
+              className="bg-gray-400 rounded m-2 shadow"
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+            >
               <Header
                 // ref={provided.innerRef}
                 isDragging={snapshot.isDragging}
@@ -106,7 +110,7 @@ const Column: React.FC<Props> = props => {
                   )
                 }}
               </Droppable>
-            </ColumnWrapper>
+            </div>
           )
         }}
       </Draggable>

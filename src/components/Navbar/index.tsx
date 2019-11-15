@@ -10,13 +10,15 @@ import { handleLogout } from '../../utils'
 
 const Navbar = () => {
   return (
-    <S.HeaderDiv>
+    // <S.HeaderDiv>
+    <nav className="h-16 flex justify-between items-center bg-blue-700">
       <div />
       <Link to="/">{/* <S.Logo src={logo} alt="" /> */}</Link>
       <div>
         <Button onClick={handleLogout}>Sign out</Button>
       </div>
-    </S.HeaderDiv>
+    </nav>
+    // </S.HeaderDiv>
   )
 }
 

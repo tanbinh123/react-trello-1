@@ -17,7 +17,7 @@ import { LandingPage, Home, Login } from './screens'
 Amplify.configure(awsConfig)
 
 ReactDOM.render(
-  <>
+  <div className="bg-blue-500 min-h-screen">
     <Helmet>
       <title>Definitely Not Trello</title>
     </Helmet>
@@ -29,7 +29,7 @@ ReactDOM.render(
         <ProtectedRoute path="/app" exact component={Home} />
       </Switch>
     </BrowserRouter>
-  </>,
+  </div>,
   document.getElementById('root')
 )
 

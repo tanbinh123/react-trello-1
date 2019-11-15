@@ -12,17 +12,22 @@ const grid = 4
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   // some basic styles to make the items look a bit nicer
-  borderRadius: '5px',
-  margin: `0 0 ${grid}px 0`,
-  padding: grid * 2,
+  // borderRadius: '5px',
+  // margin: `0 0 ${grid}px 0`,
+  // padding: grid * 2,
   userSelect: 'none',
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : '#ffffff',
+  // background: isDragging ? 'lightgreen' : '#ffffff',
 
   // styles we need to apply on draggables
   ...draggableStyle,
 })
+
+const getItemClasses = (isDragging: boolean, draggableStyle: any) =>
+  `${
+    isDragging ? 'bg-green-500 shadow-lg' : 'bg-teal-100 shadow'
+  } rounded p-2 mt-2`
 
 const CardName = styled.div`
   display: flex;
@@ -64,7 +69,10 @@ const Card: React.FC<Props> = props => {
               snapshot.isDragging,
               provided.draggableProps.style
             )}
-            // onClick={() => this.setState({ isModalOpen: true })}
+            className={getItemClasses(
+              snapshot.isDragging,
+              provided.draggableProps.style
+            )}
           >
             <CardName>
               <span

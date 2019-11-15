@@ -20,8 +20,12 @@ type Props = {}
 // const tmpOrderedListKeys = ['tmp']
 
 const Board: React.FC<Props> = props => {
-  const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({})
-  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
+  const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({
+    tmp: [{ id: '1', content: 'tmp tmp' }],
+  })
+  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([
+    'tmp',
+  ])
 
   const addCard: (listId: string, card: TCard) => void = (listId, card) => {
     setItemsMap({
