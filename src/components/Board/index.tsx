@@ -1,132 +1,136 @@
 // @ts-check
-import * as React from "react";
+import * as React from 'react'
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
-} from "react-beautiful-dnd";
-import { Label } from "semantic-ui-react";
+} from 'react-beautiful-dnd'
+import { Label } from 'semantic-ui-react'
 
-import { List } from "../";
-import InputAddColumn from "./InputAddColumn";
-import * as S from "./styles";
-import { reorderMultiple, reorderSingleList } from "./utils";
-import { TCard } from "../Card";
+import { List } from '../'
+import InputAddColumn from './InputAddColumn'
+import * as S from './styles'
+import { reorderMultiple, reorderSingleList } from './utils'
+import { TCard } from '../Card'
 
-type Props = {};
+type Props = {}
 
 const Board: React.FC<Props> = props => {
-  const [itemsMap, setItemsMap] = React.useState<{[key: string]: TCard[]}>({});
-  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([]);
+  const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({})
+  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
 
   const addCard: (listId: string, card: TCard) => void = (listId, card) => {
     setItemsMap({
       ...itemsMap,
       [listId]: [...itemsMap[listId], card],
-    });
-  };
+    })
+  }
 
   const changeCard = (listId: string, index: number, newName: string) => {
-    console.log("changecard", listId, index, newName);
-  };
+    console.log('changecard', listId, index, newName)
+  }
 
   const removeCard = (listId: string, index: number) => {
-    itemsMap[listId].splice(index, 1);
-    setItemsMap(itemsMap);
-  };
+    itemsMap[listId].splice(index, 1)
+    setItemsMap(itemsMap)
+  }
 
   const addColumn = (listName: string) => {
-    console.log("addList", listName);
+    console.log('addList', listName)
     if (orderedListKeys.includes(listName)) {
-      return false;
+      return false
     }
-    const newItemsMap = { ...itemsMap, [listName]: [] };
-    const newOrderedListKeys = [...orderedListKeys, listName];
+    const newItemsMap = { ...itemsMap, [listName]: [] }
+    const newOrderedListKeys = [...orderedListKeys, listName]
 
-    setItemsMap(newItemsMap);
-    setOrderedListKeys(newOrderedListKeys);
+    setItemsMap(newItemsMap)
+    setOrderedListKeys(newOrderedListKeys)
     // TODO throw instead of returning boolean
-    return true;
-  };
+    return true
+  }
 
   const removeColumn = (listId: string) => {
-    const index = orderedListKeys.findIndex(key => key === listId);
+    const index = orderedListKeys.findIndex(key => key === listId)
     if (index === undefined || !(listId in itemsMap)) {
       // debugger
     }
-    orderedListKeys.splice(index, 1);
-    delete itemsMap[listId];
+    orderedListKeys.splice(index, 1)
+    delete itemsMap[listId]
 
-    setItemsMap(itemsMap);
-    setOrderedListKeys(orderedListKeys);
-  };
+    setItemsMap(itemsMap)
+    setOrderedListKeys(orderedListKeys)
+  }
 
   const onDragEnd: OnDragEndResponder = result => {
-    const { source, destination } = result;
+    const { source, destination } = result
 
     // dropped outside the list
     if (!destination) {
-      return;
+      return
     }
 
-    if (result.type === "COLUMN") {
+    if (result.type === 'COLUMN') {
       const newOrderedListKeys = reorderSingleList(
         orderedListKeys,
         source.index,
-        destination.index,
-      );
-      return setOrderedListKeys(newOrderedListKeys);
+        destination.index
+      )
+      return setOrderedListKeys(newOrderedListKeys)
     }
 
-    const { items } = reorderMultiple(itemsMap, source, destination);
-    setItemsMap(items);
-  };
+    const { items } = reorderMultiple(itemsMap, source, destination)
+    setItemsMap(items)
+  }
 
   const renderWalkthrough = () => {
     return (
       <div
         style={{
-          alignItems: "center",
-          display: "flex",
+          alignItems: 'center',
+          display: 'flex',
           flex: 1,
-          justifyContent: "center",
-          textAlign: "center",
-        }}>
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
         <div
           style={{
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-          }}>
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <h2>Welcome!</h2>
           <p>Let's get started creating your first list!</p>
           <InputAddColumn
             addList={addColumn}
             placeholder="Enter your list name..."
           />
-          <Label style={{ width: "fit-content" }} pointing="above">
+          <Label style={{ width: 'fit-content' }} pointing="above">
             Press Enter when finished
           </Label>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   if (orderedListKeys.length === 0) {
-    return renderWalkthrough();
+    return renderWalkthrough()
   }
   return (
     <React.Fragment>
       <div style={{ flex: 1 }}>
         <DragDropContext
           // onDragStart={this.onDragStart}
-          onDragEnd={onDragEnd}>
+          onDragEnd={onDragEnd}
+        >
           <Droppable droppableId="board" type="COLUMN" direction="horizontal">
             {provided => {
               return (
                 <S.BoardWrapper
                   ref={provided.innerRef}
-                  {...provided.droppableProps}>
+                  {...provided.droppableProps}
+                >
                   {orderedListKeys.map((key, index) => {
                     return (
                       <List
@@ -140,17 +144,17 @@ const Board: React.FC<Props> = props => {
                         addList={addColumn}
                         removeColumn={removeColumn}
                       />
-                    );
+                    )
                   })}
                 </S.BoardWrapper>
-              );
+              )
             }}
           </Droppable>
         </DragDropContext>
         <InputAddColumn addList={addColumn} />
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default Board;
+export default Board

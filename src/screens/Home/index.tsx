@@ -1,20 +1,19 @@
-import * as React from "react";
+import * as React from 'react'
 
-import Board from "../../components/Board";
+import Board from '../../components/Board'
 // import LandingPage from "../LandingPage";
-import Navbar from "../../components/Navbar";
+import Navbar from '../../components/Navbar'
 
 type Props = {
-  handleLogout(): void;
-};
+  handleLogout(): void
+}
 const Home: React.FC<Props> = props => {
-
   return (
     <React.Fragment>
       <Navbar />
-      <Board  />
+      <Board />
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

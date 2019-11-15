@@ -1,8 +1,8 @@
-import { Auth } from "aws-amplify";
-import React, { Fragment, useState } from "react";
-import { Button, Divider, Form, Input, Label } from "semantic-ui-react";
-import styled from "styled-components";
-import { RouteComponentProps } from "react-router-dom";
+import { Auth } from 'aws-amplify'
+import React, { Fragment, useState } from 'react'
+import { Button, Divider, Form, Input, Label } from 'semantic-ui-react'
+import styled from 'styled-components'
+import { RouteComponentProps } from 'react-router-dom'
 
 const SignupWrapper = styled.section`
   flex: 1;
@@ -10,51 +10,51 @@ const SignupWrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
-type Props = {} & RouteComponentProps;
+type Props = {} & RouteComponentProps
 
-const initialFormState = { email: "", password: "", confirmationCode: "" };
+const initialFormState = { email: '', password: '', confirmationCode: '' }
 
 const Signup: React.FC<Props> = props => {
-  const [formState, setFormState] = useState(initialFormState);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [newUser, setNewUser] = useState<any>(null);
-  const { email, password, confirmationCode } = formState;
+  const [formState, setFormState] = useState(initialFormState)
+  const [isLoading, setLoading] = useState<boolean>(false)
+  const [newUser, setNewUser] = useState<any>(null)
+  const { email, password, confirmationCode } = formState
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [event.target.id]: event.target.value });
-  };
+    setFormState({ ...formState, [event.target.id]: event.target.value })
+  }
 
   const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    setLoading(true);
+    evt.preventDefault()
+    setLoading(true)
     try {
       const newUser = await Auth.signUp({
         password: formState.password,
         username: formState.email,
-      });
-      setNewUser(newUser);
+      })
+      setNewUser(newUser)
     } catch (error) {
-      alert(error);
+      alert(error)
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   const handleConfirmationSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    setLoading(false);
+    setLoading(false)
 
     try {
-      await Auth.confirmSignUp(email, confirmationCode);
-      await Auth.signIn(email, password);
-      props.history.push("/app");
+      await Auth.confirmSignUp(email, confirmationCode)
+      await Auth.signIn(email, password)
+      props.history.push('/app')
     } catch (e) {
-      alert(e);
-      setLoading(false);
+      alert(e)
+      setLoading(false)
     }
-  };
+  }
 
   const renderConfirmationForm = () => {
     return (
@@ -69,8 +69,8 @@ const Signup: React.FC<Props> = props => {
         />
         <button type="submit">Submit</button>
       </form>
-    );
-  };
+    )
+  }
 
   const renderForm = () => {
     return (
@@ -108,18 +108,18 @@ const Signup: React.FC<Props> = props => {
           <Button type="submit">Submit</Button>
         </Form>
       </Fragment>
-    );
-  };
+    )
+  }
 
   if (isLoading) {
-    return <SignupWrapper>loading ...</SignupWrapper>;
+    return <SignupWrapper>loading ...</SignupWrapper>
   }
   return (
     <SignupWrapper>
-      <h1 style={{ color: "white" }}>Sign up here</h1>
+      <h1 style={{ color: 'white' }}>Sign up here</h1>
       {newUser ? renderConfirmationForm() : renderForm()}
     </SignupWrapper>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

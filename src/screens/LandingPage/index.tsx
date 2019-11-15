@@ -13,16 +13,16 @@ import {
   Visibility,
 } from 'semantic-ui-react'
 
-import MobileContainer from './MobileContainer';
+import MobileContainer from './MobileContainer'
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
 
- type Props = {
-   mobile?: boolean
- }
+type Props = {
+  mobile?: boolean
+}
 
 export const HomepageHeading: React.FC<Props> = ({ mobile }) => (
   <Container text={true}>
@@ -47,7 +47,7 @@ export const HomepageHeading: React.FC<Props> = ({ mobile }) => (
         marginTop: mobile ? '0.5em' : '1.5em',
       }}
     />
-    <Button as={Link} to='/login' primary={true} size="huge">
+    <Button as={Link} to="/login" primary={true} size="huge">
       Get Started
       <Icon name="arrow right" />
     </Button>
@@ -63,7 +63,7 @@ export const HomepageHeading: React.FC<Props> = ({ mobile }) => (
  * It can be more complicated, but you can create really flexible markup.
  */
 class DesktopContainer extends React.Component<any, any> {
-  state = {fixed: false}
+  state = { fixed: false }
 
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
@@ -82,7 +82,11 @@ class DesktopContainer extends React.Component<any, any> {
           <Segment
             inverted={true}
             textAlign="center"
-            style={{ minHeight: 700, padding: '1em 0em', backgroundColor: '#0079bf' }}
+            style={{
+              minHeight: 700,
+              padding: '1em 0em',
+              backgroundColor: '#0079bf',
+            }}
             vertical={true}
           >
             <Menu
@@ -144,7 +148,6 @@ const ResponsiveContainer: React.FC<Props> = ({ children }) => (
 
 const HomepageLayout: React.FC = () => (
   <ResponsiveContainer>
-    
     {/* <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign="middle">
         <Grid.Row>

@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
 // import logo from '../../assets/logo.png'
 // const logo = require('../../assets/logo.png')
-import * as S from "./styles";
+import * as S from './styles'
 
-import { handleLogout } from "../../utils";
+import { handleLogout } from '../../utils'
 
 const Navbar = () => {
   return (
@@ -17,7 +17,7 @@ const Navbar = () => {
         <Button onClick={handleLogout}>Sign out</Button>
       </div>
     </S.HeaderDiv>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

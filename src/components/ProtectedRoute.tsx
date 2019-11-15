@@ -1,34 +1,29 @@
-import React, { useState, useEffect } from "react";
-import {
-  withRouter,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import { Auth } from "aws-amplify";
+import React, { useState, useEffect } from 'react'
+import { withRouter, Route, Redirect } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 
 const ProtectedRoute = (props: any) => {
-  const { component: Component, ...rest } = props;
+  const { component: Component, ...rest } = props
 
-  const [loaded, setLoaded] = useState(false);
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [loaded, setLoaded] = useState(false)
+  const [isAuthenticated, setAuthenticated] = useState(false)
 
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const user = await Auth.currentAuthenticatedUser();
+        const user = await Auth.currentAuthenticatedUser()
         if (user) {
-          setAuthenticated(true);
+          setAuthenticated(true)
         }
       } catch (error) {
-        props.history.push("/login");
+        props.history.push('/login')
       }
-      setLoaded(true);
-    };
-    checkUser();
-  }, [props.history]);
+      setLoaded(true)
+    }
+    checkUser()
+  }, [props.history])
 
-
-  if (!loaded) return <div>hanging out</div>;
+  if (!loaded) return <div>hanging out</div>
 
   return (
     <Route
@@ -39,13 +34,13 @@ const ProtectedRoute = (props: any) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: '/login',
             }}
           />
-        );
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default withRouter(ProtectedRoute);
+export default withRouter(ProtectedRoute)

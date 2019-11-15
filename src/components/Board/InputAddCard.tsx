@@ -1,14 +1,14 @@
 import * as React from 'react'
-import {Input} from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react'
 import { v4 } from 'uuid'
-import { TCard } from '../Card';
+import { TCard } from '../Card'
 
 type Props = {
-  addNewCard(listId: string, card: TCard): void,
+  addNewCard(listId: string, card: TCard): void
   listId: string
 }
 const AddCard: React.FC<Props> = props => {
-  const {addNewCard, listId} = props;
+  const { addNewCard, listId } = props
   const [text, setText] = React.useState('')
 
   const handleBlur = () => {
@@ -25,26 +25,25 @@ const AddCard: React.FC<Props> = props => {
     addNewCard(listId, card)
     setText('')
   }
-    return (
-      <div style={{ margin: '0 0 0 13px', padding: '0 0 20px 0' }}>
-        <form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            className="addNewCard"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '0',
-              cursor: 'pointer',
-            }}
-            placeholder="Add a card..."
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={text}
-          />
-        </form>
-      </div>
-    )
-  }
-
+  return (
+    <div style={{ margin: '0 0 0 13px', padding: '0 0 20px 0' }}>
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          className="addNewCard"
+          style={{
+            background: 'rgba(255,255,255,0.1)',
+            border: '0',
+            cursor: 'pointer',
+          }}
+          placeholder="Add a card..."
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={text}
+        />
+      </form>
+    </div>
+  )
+}
 
 export default AddCard

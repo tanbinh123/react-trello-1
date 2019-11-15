@@ -1,7 +1,7 @@
-import { Formik } from "formik";
-import * as React from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
-import { Auth } from "aws-amplify";
+import { Formik } from 'formik'
+import * as React from 'react'
+import { Link, RouteComponentProps } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 import {
   Button,
   Divider,
@@ -9,29 +9,29 @@ import {
   Input,
   Label,
   Progress,
-} from "semantic-ui-react";
+} from 'semantic-ui-react'
 // import * as Yup from "yup";
 
-import * as S from "./styles";
+import * as S from './styles'
 
-type Props = {} & RouteComponentProps;
+type Props = {} & RouteComponentProps
 
 const Login: React.FC<Props> = props => {
   const handleLogin: (input: {
-    email: string;
-    password: string;
+    email: string
+    password: string
   }) => Promise<any> = async ({ email, password }) => {
     try {
-      await Auth.signIn(email, password);
+      await Auth.signIn(email, password)
       //   if (signInData) {
       //     this.setState({isLoggedIn: true})
       //   }
-      props.history.push("/app");
+      props.history.push('/app')
     } catch (error) {
-      console.log(error);
-      return error;
+      console.log(error)
+      return error
     }
-  };
+  }
 
   return (
     <S.OuterWrapper>
@@ -39,16 +39,16 @@ const Login: React.FC<Props> = props => {
         <h2>Log in to get access to your board</h2>
         <Formik
           initialValues={{
-            email: "testdrive@react-trello.com",
-            password: "testdrive",
+            email: 'testdrive@react-trello.com',
+            password: 'testdrive',
           }}
           onSubmit={async ({ email, password }, { setSubmitting }) => {
-            setSubmitting(true);
-            const error = await handleLogin({ email, password });
+            setSubmitting(true)
+            const error = await handleLogin({ email, password })
             if (error) {
-              console.warn("error", error);
+              console.warn('error', error)
             }
-            setSubmitting(false);
+            setSubmitting(false)
           }}
 
           // {
@@ -77,18 +77,19 @@ const Login: React.FC<Props> = props => {
               return (
                 <div
                   style={{
-                    alignItems: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    justifyContent: "center",
-                  }}>
-                  <div style={{ width: "50%" }}>
+                    alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div style={{ width: '50%' }}>
                     <Progress percent={100} indicating />
                   </div>
                   <h2>Looking for the keys ...</h2>
                 </div>
-              );
+              )
             }
 
             return (
@@ -130,7 +131,8 @@ const Login: React.FC<Props> = props => {
                   type="button"
                   className="outline"
                   onClick={handleReset}
-                  disabled={!dirty || isSubmitting}>
+                  disabled={!dirty || isSubmitting}
+                >
                   Reset
                 </Button>
                 <Button type="submit" disabled={isSubmitting}>
@@ -138,19 +140,19 @@ const Login: React.FC<Props> = props => {
                 </Button>
                 {errors && (
                   <h2>
-                    No such user found. Maybe try{" "}
+                    No such user found. Maybe try{' '}
                     <Link to="/signup">signing up</Link>
                   </h2>
                 )}
               </Form>
-            );
+            )
           }}
         </Formik>
         <br />
       </S.InnerWrapper>
     </S.OuterWrapper>
-  );
-};
+  )
+}
 
 // const myHandleSubmit = async (
 //   { email, password },
@@ -164,4 +166,4 @@ const Login: React.FC<Props> = props => {
 //   setSubmitting(false)
 // }
 
-export default Login;
+export default Login

@@ -1,32 +1,35 @@
 import * as React from 'react'
 import {
-    Button,
-    Container,
-    // Header,
-    Icon,
-    Menu,
-    Responsive,
-    Segment,
-    Sidebar,
-    // Visibility,
-  } from 'semantic-ui-react'
+  Button,
+  Container,
+  // Header,
+  Icon,
+  Menu,
+  Responsive,
+  Segment,
+  Sidebar,
+  // Visibility,
+} from 'semantic-ui-react'
 
-  import {HomepageHeading} from './index';
+import { HomepageHeading } from './index'
 
 export default class MobileContainer extends React.Component<any, any> {
-  state = {sidebarOpened: false}
+  state = { sidebarOpened: false }
 
   handlePusherClick = () => {
-    const {sidebarOpened} = this.state
+    const { sidebarOpened } = this.state
 
-    if (sidebarOpened) {this.setState({sidebarOpened: false})}
+    if (sidebarOpened) {
+      this.setState({ sidebarOpened: false })
+    }
   }
 
-  handleToggle = () => this.setState({sidebarOpened: !this.state.sidebarOpened})
+  handleToggle = () =>
+    this.setState({ sidebarOpened: !this.state.sidebarOpened })
 
   render() {
-    const {children} = this.props
-    const {sidebarOpened} = this.state
+    const { children } = this.props
+    const { sidebarOpened } = this.state
 
     return (
       <Responsive {...Responsive.onlyMobile}>
@@ -51,12 +54,12 @@ export default class MobileContainer extends React.Component<any, any> {
           <Sidebar.Pusher
             dimmed={sidebarOpened}
             onClick={this.handlePusherClick}
-            style={{minHeight: '100vh'}}
+            style={{ minHeight: '100vh' }}
           >
             <Segment
               inverted
               textAlign="center"
-              style={{minHeight: 350, padding: '1em 0em'}}
+              style={{ minHeight: 350, padding: '1em 0em' }}
               vertical
             >
               <Container>
@@ -68,7 +71,7 @@ export default class MobileContainer extends React.Component<any, any> {
                     <Button as="a" inverted>
                       Log in
                     </Button>
-                    <Button as="a" inverted style={{marginLeft: '0.5em'}}>
+                    <Button as="a" inverted style={{ marginLeft: '0.5em' }}>
                       Sign Up
                     </Button>
                   </Menu.Item>
