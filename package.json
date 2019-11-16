@@ -10,7 +10,9 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "cy:run": "cypress run",
-    "e2e": "start-server-and-test start http://localhost:3000 cy:run"
+    "e2e": "start-server-and-test start http://localhost:3000 cy:run",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
     "autoprefixer": "^9.7.1",
@@ -35,6 +37,10 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.2.6",
+    "@storybook/addon-links": "^5.2.6",
+    "@storybook/addons": "^5.2.6",
+    "@storybook/react": "^5.2.6",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@types/jest": "24.0.23",
