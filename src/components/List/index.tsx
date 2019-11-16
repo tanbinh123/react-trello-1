@@ -53,7 +53,7 @@ const Column: React.FC<Props> = props => {
   }
 
   return (
-    <div style={{ margin: '5px' }} data-testid="list">
+    <div style={{ margin: '5px', maxWidth: '300px' }} data-testid="list">
       <Draggable draggableId={id} index={index}>
         {(provided, snapshot) => {
           return (
