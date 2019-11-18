@@ -9,11 +9,11 @@ import AddCard from '../Board/InputAddCard'
 
 const grid = 8
 
-const ColumnWrapper = styled('div')`
-  background: #e2e4e6;
-  border-radius: 5px;
-  margin: 5px;
-`
+// const ColumnWrapper = styled('div')`
+//   background: #e2e4e6;
+//   border-radius: 5px;
+//   margin: 5px;
+// `
 
 interface IMyHeaderProps {
   isDragging: boolean

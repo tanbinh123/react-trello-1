@@ -4,7 +4,7 @@ import { Button } from '..'
 
 // import logo from '../../assets/logo.png'
 // const logo = require('../../assets/logo.png')
-import * as S from './styles'
+// import * as S from './styles'
 
 import { handleLogout } from '../../utils'
 
