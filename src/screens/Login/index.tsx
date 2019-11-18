@@ -2,14 +2,7 @@ import { Formik } from 'formik'
 import * as React from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  Label,
-  Progress,
-} from '../../components'
+import { Button, Divider, Form, Input, Label, Progress } from '../../components'
 // import * as Yup from "yup";
 
 import * as S from './styles'
@@ -23,9 +16,6 @@ const Login: React.FC<Props> = props => {
   }) => Promise<any> = async ({ email, password }) => {
     try {
       await Auth.signIn(email, password)
-      //   if (signInData) {
-      //     this.setState({isLoggedIn: true})
-      //   }
       props.history.push('/app')
     } catch (error) {
       console.log(error)

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 export type TCard = {
   id: string
   content: string
+  name?: string
 }
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
@@ -80,7 +81,7 @@ const Card: React.FC<Props> = props => {
                   alignItems: 'center',
                 }}
               >
-                {item.content}
+                {item.content || item.name}
               </span>
               <span onClick={handleDelete}>
                 <Popup

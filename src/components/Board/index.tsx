@@ -5,12 +5,19 @@ import {
   Droppable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd'
+import { v4 as uuid } from 'uuid'
 
 import { List } from '../'
 import InputAddColumn from './InputAddColumn'
 import * as S from './styles'
 import { reorderMultiple, reorderSingleList } from './utils'
 import { TCard } from '../Card'
+
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
+
+import { createCard, createColumn } from '../../graphql/mutations'
+import { listColumns, listCards } from '../../graphql/queries'
 
 type Props = {}
 
@@ -20,12 +27,24 @@ type Props = {}
 // const tmpOrderedListKeys = ['tmp']
 
 const Board: React.FC<Props> = props => {
+  // const { loading, error, data } = useQuery(gql(listCards))
+  const {
+    loading: loadingColumn,
+    error: errorColumn,
+    data: dataColumn,
+    refetch,
+  } = useQuery(gql(listColumns))
+  const [addCardPlease] = useMutation(gql(createCard))
+  const [addColumnPlease] = useMutation(gql(createColumn))
+
   const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({
     tmp: [{ id: '1', content: 'tmp tmp' }],
   })
-  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([
-    'tmp',
-  ])
+  // const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([
+  //   'tmp',
+  // ])
+  console.log('zzz', dataColumn)
+  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
 
   const addCard: (listId: string, card: TCard) => void = (listId, card) => {
     setItemsMap({
@@ -127,6 +146,23 @@ const Board: React.FC<Props> = props => {
   // if (orderedListKeys.length === 0) {
   //   return renderWalkthrough()
   // }
+
+  const myLists: any[] =
+    (dataColumn && dataColumn.listColumns && dataColumn.listColumns.items) ||
+    // dataColumn.listColumns.items.map((column: any) => column.name)) ||
+    []
+
+  console.log('ttt', myLists)
+  // console.log({ data })
+  // const myItems: TCard[] =
+  //   data &&
+  //   data.listCards &&
+  //   data.listCards.items &&
+  //   data.listCards.items.map((card: any) => ({
+  //     id: card.id,
+  //     content: card.name,
+  //   }))
+
   return (
     <React.Fragment>
       <div style={{ flex: 1 }}>
@@ -141,13 +177,14 @@ const Board: React.FC<Props> = props => {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {orderedListKeys.map((key, index) => {
+                  {myLists.map((list, index) => {
                     return (
                       <List
-                        id={key}
+                        id={list.name}
                         index={index}
-                        key={key}
-                        items={itemsMap[key]}
+                        key={list.id}
+                        // items={itemsMap[key]}
+                        items={list.cards.items}
                         addCard={addCard}
                         changeCard={changeCard}
                         removeCard={removeCard}
@@ -162,6 +199,41 @@ const Board: React.FC<Props> = props => {
           </Droppable>
         </DragDropContext>
         <InputAddColumn addList={addColumn} />
+        <button
+          onClick={async () => {
+            await addCardPlease({
+              variables: {
+                input: {
+                  id: uuid(),
+                  cardColumnId: '2db5fe83-1ae4-4f4e-98dc-868ae308aea6',
+                  name: `a name ${Math.random().toFixed(3)}`,
+                },
+              },
+            })
+            refetch()
+          }}
+        >
+          add card
+        </button>
+        <button
+          onClick={async () => {
+            await addColumnPlease({
+              variables: {
+                input: {
+                  id: uuid(),
+                  name: `a name ${Math.random().toFixed(3)}`,
+                },
+              },
+            })
+            refetch()
+          }}
+        >
+          add column
+        </button>
+        {/* <pre>{JSON.stringify({ loading, error, data }, null, 2)}</pre> */}
+        <pre>
+          {JSON.stringify({ loadingColumn, errorColumn, dataColumn }, null, 2)}
+        </pre>
       </div>
     </React.Fragment>
   )
