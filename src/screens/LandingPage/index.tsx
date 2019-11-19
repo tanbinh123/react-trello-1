@@ -47,7 +47,7 @@ export const HomepageHeading: React.FC<Props> = ({ mobile }) => (
         marginTop: mobile ? '0.5em' : '1.5em',
       }}
     />
-    <Button as={Link} to="/login" primary={true} size="huge">
+    <Button as={Link} to="/app" primary={true} size="huge">
       Get Started
       <Icon name="arrow right" />
     </Button>

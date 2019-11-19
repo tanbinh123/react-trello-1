@@ -1,14 +1,17 @@
 import * as React from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
+import { v4 as uuid } from 'uuid'
+
 import { Input } from '..'
-import { v4 } from 'uuid'
-import { TCard } from '../Card'
+import { createCard } from '../../graphql/mutations'
 
 type Props = {
-  addNewCard(listId: string, card: TCard): void
   listId: string
 }
 const AddCard: React.FC<Props> = props => {
-  const { addNewCard, listId } = props
+  const [createCardMutation] = useMutation(gql(createCard))
+  const { listId } = props
   const [text, setText] = React.useState('')
 
   const handleBlur = () => {
@@ -19,11 +22,21 @@ const AddCard: React.FC<Props> = props => {
     setText(evt.target.value)
   }
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    const card = { id: v4(), content: text }
-    addNewCard(listId, card)
-    setText('')
+    const input = {
+      id: uuid(),
+      position: 999,
+      name: text,
+      cardColumnId: listId,
+    }
+    console.log({ input })
+    try {
+      await createCardMutation({ variables: { input } })
+      setText('')
+    } catch (error) {
+      alert(error)
+    }
   }
   return (
     <div style={{ margin: '0 0 0 13px', padding: '0 0 20px 0' }}>

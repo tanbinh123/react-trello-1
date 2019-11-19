@@ -1,94 +1,27 @@
-// @ts-check
 import * as React from 'react'
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd'
-import { v4 as uuid } from 'uuid'
+import { useQuery } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
 
 import { List } from '../'
 import InputAddColumn from './InputAddColumn'
 import * as S from './styles'
 import { reorderMultiple, reorderSingleList } from './utils'
-import { TCard } from '../Card'
+// import { TCard } from '../Card'
+import { listColumns } from '../../graphql/queries'
 
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
+const Board: React.FC = () => {
+  const { data, refetch } = useQuery(gql(listColumns))
 
-import { createCard, createColumn } from '../../graphql/mutations'
-import { listColumns, listCards } from '../../graphql/queries'
+  // const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({
+  //   tmp: [{ id: '1', content: 'tmp tmp' }],
+  // })
 
-type Props = {}
-
-// const tmpItemsMap = {
-//   tmp: [{ id: '1', content: 'tmp tmp' }],
-// }
-// const tmpOrderedListKeys = ['tmp']
-
-const Board: React.FC<Props> = props => {
-  // const { loading, error, data } = useQuery(gql(listCards))
-  const {
-    loading: loadingColumn,
-    error: errorColumn,
-    data: dataColumn,
-    refetch,
-  } = useQuery(gql(listColumns))
-  const [addCardPlease] = useMutation(gql(createCard))
-  const [addColumnPlease] = useMutation(gql(createColumn))
-
-  const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({
-    tmp: [{ id: '1', content: 'tmp tmp' }],
-  })
-  // const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([
-  //   'tmp',
-  // ])
-  console.log('zzz', dataColumn)
   const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
-
-  const addCard: (listId: string, card: TCard) => void = (listId, card) => {
-    setItemsMap({
-      ...itemsMap,
-      [listId]: [...itemsMap[listId], card],
-    })
-  }
-
-  const changeCard = (listId: string, index: number, newName: string) => {
-    console.log('changecard', listId, index, newName)
-  }
-
-  const removeCard = (listId: string, index: number) => {
-    itemsMap[listId].splice(index, 1)
-    setItemsMap(itemsMap)
-  }
-
-  const addColumn = (listName: string) => {
-    console.log('addList', listName)
-    if (orderedListKeys.includes(listName)) {
-      return false
-    }
-    const newItemsMap = { ...itemsMap, [listName]: [] }
-    const newOrderedListKeys = [...orderedListKeys, listName]
-
-    setItemsMap(newItemsMap)
-    setOrderedListKeys(newOrderedListKeys)
-    // TODO throw instead of returning boolean
-    return true
-  }
-
-  const removeColumn = (listId: string) => {
-    debugger
-    const index = orderedListKeys.findIndex(key => key === listId)
-    if (index === undefined || !(listId in itemsMap)) {
-      // debugger
-    }
-    orderedListKeys.splice(index, 1)
-    const newItemsMap = { ...itemsMap }
-    delete newItemsMap[listId]
-
-    setItemsMap(newItemsMap)
-    setOrderedListKeys(orderedListKeys)
-  }
 
   const onDragEnd: OnDragEndResponder = result => {
     const { source, destination } = result
@@ -104,64 +37,19 @@ const Board: React.FC<Props> = props => {
         source.index,
         destination.index
       )
-      return setOrderedListKeys(newOrderedListKeys)
+      // return setOrderedListKeys(newOrderedListKeys)
     }
 
-    const { items } = reorderMultiple(itemsMap, source, destination)
-    setItemsMap(items)
+    // const { items } = reorderMultiple(itemsMap, source, destination)
+    // setItemsMap(items)
   }
-
-  // const renderWalkthrough = () => {
-  //   return (
-  //     <div
-  //       style={{
-  //         alignItems: 'center',
-  //         display: 'flex',
-  //         flex: 1,
-  //         justifyContent: 'center',
-  //         textAlign: 'center',
-  //       }}
-  //     >
-  //       <div
-  //         style={{
-  //           alignItems: 'center',
-  //           display: 'flex',
-  //           flexDirection: 'column',
-  //         }}
-  //       >
-  //         <h2>Welcome!</h2>
-  //         <p>Let's get started creating your first list!</p>
-  //         <InputAddColumn
-  //           addList={addColumn}
-  //           placeholder="Enter your list name..."
-  //         />
-  //         <Label style={{ width: 'fit-content' }} pointing="above">
-  //           Press Enter when finished
-  //         </Label>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   // if (orderedListKeys.length === 0) {
   //   return renderWalkthrough()
   // }
 
   const myLists: any[] =
-    (dataColumn && dataColumn.listColumns && dataColumn.listColumns.items) ||
-    // dataColumn.listColumns.items.map((column: any) => column.name)) ||
-    []
-
-  console.log('ttt', myLists)
-  // console.log({ data })
-  // const myItems: TCard[] =
-  //   data &&
-  //   data.listCards &&
-  //   data.listCards.items &&
-  //   data.listCards.items.map((card: any) => ({
-  //     id: card.id,
-  //     content: card.name,
-  //   }))
+    (data && data.listColumns && data.listColumns.items) || []
 
   return (
     <React.Fragment>
@@ -180,16 +68,12 @@ const Board: React.FC<Props> = props => {
                   {myLists.map((list, index) => {
                     return (
                       <List
-                        id={list.name}
+                        id={list.id}
+                        name={list.name}
                         index={index}
                         key={list.id}
-                        // items={itemsMap[key]}
+                        refetch={refetch}
                         items={list.cards.items}
-                        addCard={addCard}
-                        changeCard={changeCard}
-                        removeCard={removeCard}
-                        addList={addColumn}
-                        removeColumn={removeColumn}
                       />
                     )
                   })}
@@ -198,42 +82,7 @@ const Board: React.FC<Props> = props => {
             }}
           </Droppable>
         </DragDropContext>
-        <InputAddColumn addList={addColumn} />
-        <button
-          onClick={async () => {
-            await addCardPlease({
-              variables: {
-                input: {
-                  id: uuid(),
-                  cardColumnId: '2db5fe83-1ae4-4f4e-98dc-868ae308aea6',
-                  name: `a name ${Math.random().toFixed(3)}`,
-                },
-              },
-            })
-            refetch()
-          }}
-        >
-          add card
-        </button>
-        <button
-          onClick={async () => {
-            await addColumnPlease({
-              variables: {
-                input: {
-                  id: uuid(),
-                  name: `a name ${Math.random().toFixed(3)}`,
-                },
-              },
-            })
-            refetch()
-          }}
-        >
-          add column
-        </button>
-        {/* <pre>{JSON.stringify({ loading, error, data }, null, 2)}</pre> */}
-        <pre>
-          {JSON.stringify({ loadingColumn, errorColumn, dataColumn }, null, 2)}
-        </pre>
+        <InputAddColumn refetch={refetch} />
       </div>
     </React.Fragment>
   )

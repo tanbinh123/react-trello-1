@@ -1,7 +1,11 @@
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { Button, Popup } from '../'
 import styled from 'styled-components'
+import { useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
+
+import { Button, Popup } from '../'
+import { deleteCard } from '../../graphql/mutations'
 
 export type TCard = {
   id: string
@@ -37,12 +41,13 @@ type Props = {
   item: TCard
   index: number
   listId: string
-  changeCard(listId: string, index: number, newName: string): void
-  removeCard(listId: string, index: number): void
+  // changeCard(listId: string, index: number, newName: string): void
+  // removeCard(listId: string, index: number): void
 }
 
 const Card: React.FC<Props> = props => {
-  const { item, index, listId, removeCard } = props
+  const [deleteCardMutation] = useMutation(gql(deleteCard))
+  const { item, index } = props
 
   // const handleChangeCard = e => {
   //   const newName = e.target.value;
@@ -51,9 +56,14 @@ const Card: React.FC<Props> = props => {
   //   changeCard(listId, index, newName);
   // };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     console.log('handledelete')
-    removeCard(listId, index)
+    // removeCard(listId, index)
+    try {
+      await deleteCardMutation({ variables: { input: { id: item.id } } })
+    } catch (error) {
+      alert(error)
+    }
   }
 
   return (

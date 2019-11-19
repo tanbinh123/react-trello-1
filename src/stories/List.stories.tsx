@@ -26,14 +26,16 @@ export const empty = () => (
               >
                 <List
                   id={'My List'}
+                  name={'My List'}
                   index={1}
                   key={1}
                   items={[]}
-                  addList={noop}
-                  addCard={noop}
-                  changeCard={noop}
-                  removeCard={noop}
-                  removeColumn={noop}
+                  refetch={noop}
+                  // addList={noop}
+                  // addCard={noop}
+                  // changeCard={noop}
+                  // removeCard={noop}
+                  // removeColumn={noop}
                 />
               </div>
             )}

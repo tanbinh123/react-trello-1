@@ -1,25 +1,21 @@
 import * as React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
-import { Button, Popup } from '..'
-// import styled, {StyledFunction, StyledProps} from 'styled-components'
+import { useMutation } from '@apollo/react-hooks'
+import { gql } from 'apollo-boost'
 
+import { Button, Popup } from '..'
+import { deleteColumn } from '../../graphql/mutations'
 import Card, { TCard } from '../Card'
 import AddCard from '../Board/InputAddCard'
 
 const grid = 8
 
-// const ColumnWrapper = styled('div')`
-//   background: #e2e4e6;
-//   border-radius: 5px;
-//   margin: 5px;
-// `
-
-interface IMyHeaderProps {
+interface HeaderProps {
   isDragging: boolean
 }
 
-const Header = styled('div')<IMyHeaderProps>`
+const Header = styled('div')<HeaderProps>`
   padding: 0px 0 0 8px;
   margin: 5px;
   display: flex;
@@ -35,21 +31,29 @@ const getListStyle = (isDraggingOver: boolean) => ({
 
 type Props = {
   id: string
+  name: string
   items: TCard[]
   index: number
-  changeCard(listId: string, index: number, newName: string): void
-  addCard(listId: string, card: TCard): void
-  removeCard(listId: string, index: number): void
-  addList(listName: string): void
-  removeColumn(id: string): void
+  refetch: any
+  // changeCard(listId: string, index: number, newName: string): void
+  // addCard(listId: string, card: TCard): void
+  // removeCard(listId: string, index: number): void
+  // addList(listName: string): void
+  // removeColumn(id: string): void
 }
 
 const Column: React.FC<Props> = props => {
-  const { id, items, index, changeCard, removeCard, removeColumn } = props
+  const { id, name, items, index, refetch } = props
+  const [deleteColumnMutation] = useMutation(gql(deleteColumn))
 
-  const handleDelete = () => {
+  const handleDelete = async() => {
     console.log('delete column', id)
-    removeColumn(id)
+    try {
+      await deleteColumnMutation({variables: {input: {id}}})
+      await refetch()
+    } catch (error) {
+      alert(error)
+    }
   }
 
   return (
@@ -73,7 +77,7 @@ const Column: React.FC<Props> = props => {
                     alignItems: 'center',
                   }}
                 >
-                  {id}
+                  {name}
                 </span>
                 <span onClick={handleDelete}>
                   <Popup
@@ -98,14 +102,14 @@ const Column: React.FC<Props> = props => {
                               item={item}
                               key={item.id}
                               index={idx}
-                              changeCard={changeCard}
-                              removeCard={removeCard}
                               listId={id}
                             />
                           ))}
                         {droppableProvided.placeholder}
                       </div>
-                      <AddCard addNewCard={props.addCard} listId={id} />
+                      <AddCard
+                        listId={id}
+                      />
                     </div>
                   )
                 }}

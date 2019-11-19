@@ -27,8 +27,8 @@ export const basic = () => (
                   item={{ id: '1', content: 'a title' }}
                   index={1}
                   listId="1"
-                  changeCard={noop}
-                  removeCard={noop}
+                  // changeCard={noop}
+                  // removeCard={noop}
                 />
               </div>
             )}
