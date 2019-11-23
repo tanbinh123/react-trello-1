@@ -1,26 +1,14 @@
 import * as React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-import { Button, Popup } from '..'
 import { deleteColumn } from '../../graphql/mutations'
 import Card, { TCard } from '../Card'
 import AddCard from '../Board/InputAddCard'
+import { Header } from './Header'
 
 const grid = 8
-
-interface HeaderProps {
-  isDragging: boolean
-}
-
-const Header = styled('div')<HeaderProps>`
-  padding: 0px 0 0 8px;
-  margin: 5px;
-  display: flex;
-  justify-content: space-between;
-`
 
 const getListStyle = (isDraggingOver: boolean) => ({
   background: isDraggingOver ? 'lightblue' : '#e2e4e6',
@@ -68,27 +56,14 @@ const Column: React.FC<Props> = props => {
               {...provided.draggableProps}
             >
               <Header
-                // ref={provided.innerRef}
+                columnId={id}
                 isDragging={snapshot.isDragging}
-                {...provided.dragHandleProps}
-              >
-                <span
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  {name}
-                </span>
-                <span onClick={handleDelete}>
-                  <Popup
-                    trigger={
-                      <Button icon="delete" data-testid="delete-button-list" />
-                    }
-                    content="delete this list"
-                  />
-                </span>
-              </Header>
+                dragHandleProps={provided.dragHandleProps}
+                name={name}
+                handleDelete={handleDelete}
+                // {...provided.dragHandleProps}
+              />
+
               <Droppable droppableId={id}>
                 {(droppableProvided, droppableSnapshot) => {
                   return (
