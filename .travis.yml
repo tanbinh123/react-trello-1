@@ -2,9 +2,15 @@ language: node_js
 node_js:
   - 12
 cache:
+  # Caches $HOME/.npm when npm ci is default script command
+  # Caches node_modules in all other cases
+  npm: true
   directories:
     - node_modules
+    # we also need to cache folder with Cypress binary
+    - ~/.cache
+install: yarn install
 script:
-  - npm run build
-  - npm test
-  # - npm run e2e
+  - yarn build
+  - yarn test
+  - yarn e2e-ci # create aws-exports file and run cypress
