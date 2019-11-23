@@ -26,6 +26,7 @@ export const empty = () => (
               >
                 <List
                   id={'My List'}
+                  position={1}
                   name={'My List'}
                   index={1}
                   key={1}

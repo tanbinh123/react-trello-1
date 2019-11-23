@@ -3,15 +3,15 @@
 
 export type CreateCardInput = {
   id?: string | null,
-  position?: number | null,
   name: string,
+  position: number,
   cardColumnId: string,
 };
 
 export type UpdateCardInput = {
   id: string,
-  position?: number | null,
   name?: string | null,
+  position?: number | null,
   cardColumnId?: string | null,
 };
 
@@ -22,7 +22,7 @@ export type DeleteCardInput = {
 export type CreateColumnInput = {
   id?: string | null,
   name: string,
-  position?: number | null,
+  position: number,
   boardColumnsId?: string | null,
 };
 
@@ -53,14 +53,27 @@ export type DeleteBoardInput = {
 
 export type ModelCardFilterInput = {
   id?: ModelIDFilterInput | null,
-  position?: ModelIntFilterInput | null,
   name?: ModelStringFilterInput | null,
+  position?: ModelIntFilterInput | null,
   and?: Array< ModelCardFilterInput | null > | null,
   or?: Array< ModelCardFilterInput | null > | null,
   not?: ModelCardFilterInput | null,
 };
 
 export type ModelIDFilterInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export type ModelStringFilterInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -83,19 +96,6 @@ export type ModelIntFilterInput = {
   contains?: number | null,
   notContains?: number | null,
   between?: Array< number | null > | null,
-};
-
-export type ModelStringFilterInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
 };
 
 export type ModelColumnFilterInput = {
@@ -123,20 +123,20 @@ export type CreateCardMutation = {
   createCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -152,20 +152,20 @@ export type UpdateCardMutation = {
   updateCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -181,20 +181,20 @@ export type DeleteCardMutation = {
   deleteCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -211,19 +211,19 @@ export type CreateColumnMutation = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -240,19 +240,19 @@ export type UpdateColumnMutation = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -269,19 +269,19 @@ export type DeleteColumnMutation = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -304,7 +304,7 @@ export type CreateBoardMutation = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -330,7 +330,7 @@ export type UpdateBoardMutation = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -356,7 +356,7 @@ export type DeleteBoardMutation = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -375,20 +375,20 @@ export type GetCardQuery = {
   getCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -408,13 +408,13 @@ export type ListCardsQuery = {
     items:  Array< {
       __typename: "Card",
       id: string,
-      position: number | null,
       name: string,
+      position: number,
       column:  {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -434,19 +434,19 @@ export type GetColumnQuery = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -467,14 +467,14 @@ export type ListColumnsQuery = {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -498,7 +498,7 @@ export type GetBoardQuery = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -528,7 +528,7 @@ export type ListBoardsQuery = {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -541,20 +541,20 @@ export type OnCreateCardSubscription = {
   onCreateCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -566,20 +566,20 @@ export type OnUpdateCardSubscription = {
   onUpdateCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -591,20 +591,20 @@ export type OnDeleteCardSubscription = {
   onDeleteCard:  {
     __typename: "Card",
     id: string,
-    position: number | null,
     name: string,
+    position: number,
     column:  {
       __typename: "Column",
       id: string,
       name: string,
-      position: number | null,
+      position: number,
       cards:  {
         __typename: "ModelCardConnection",
         items:  Array< {
           __typename: "Card",
           id: string,
-          position: number | null,
           name: string,
+          position: number,
         } | null > | null,
         nextToken: string | null,
       } | null,
@@ -617,19 +617,19 @@ export type OnCreateColumnSubscription = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -642,19 +642,19 @@ export type OnUpdateColumnSubscription = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -667,19 +667,19 @@ export type OnDeleteColumnSubscription = {
     __typename: "Column",
     id: string,
     name: string,
-    position: number | null,
+    position: number,
     cards:  {
       __typename: "ModelCardConnection",
       items:  Array< {
         __typename: "Card",
         id: string,
-        position: number | null,
         name: string,
+        position: number,
         column:  {
           __typename: "Column",
           id: string,
           name: string,
-          position: number | null,
+          position: number,
         },
       } | null > | null,
       nextToken: string | null,
@@ -698,7 +698,7 @@ export type OnCreateBoardSubscription = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -720,7 +720,7 @@ export type OnUpdateBoardSubscription = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,
@@ -742,7 +742,7 @@ export type OnDeleteBoardSubscription = {
         __typename: "Column",
         id: string,
         name: string,
-        position: number | null,
+        position: number,
         cards:  {
           __typename: "ModelCardConnection",
           nextToken: string | null,

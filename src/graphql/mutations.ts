@@ -4,8 +4,8 @@
 export const createCard = `mutation CreateCard($input: CreateCardInput!) {
   createCard(input: $input) {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -13,8 +13,8 @@ export const createCard = `mutation CreateCard($input: CreateCardInput!) {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -25,8 +25,8 @@ export const createCard = `mutation CreateCard($input: CreateCardInput!) {
 export const updateCard = `mutation UpdateCard($input: UpdateCardInput!) {
   updateCard(input: $input) {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -34,8 +34,8 @@ export const updateCard = `mutation UpdateCard($input: UpdateCardInput!) {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -46,8 +46,8 @@ export const updateCard = `mutation UpdateCard($input: UpdateCardInput!) {
 export const deleteCard = `mutation DeleteCard($input: DeleteCardInput!) {
   deleteCard(input: $input) {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -55,8 +55,8 @@ export const deleteCard = `mutation DeleteCard($input: DeleteCardInput!) {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -72,8 +72,8 @@ export const createColumn = `mutation CreateColumn($input: CreateColumnInput!) {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name
@@ -93,8 +93,8 @@ export const updateColumn = `mutation UpdateColumn($input: UpdateColumnInput!) {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name
@@ -114,8 +114,8 @@ export const deleteColumn = `mutation DeleteColumn($input: DeleteColumnInput!) {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name

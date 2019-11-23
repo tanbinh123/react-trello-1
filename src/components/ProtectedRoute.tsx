@@ -23,7 +23,7 @@ const ProtectedRoute = (props: any) => {
     checkUser()
   }, [props.history])
 
-  if (!loaded) return <div>hanging out</div>
+  if (!loaded) return <div>Loading...</div>
 
   return (
     <Route

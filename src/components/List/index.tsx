@@ -32,6 +32,7 @@ const getListStyle = (isDraggingOver: boolean) => ({
 type Props = {
   id: string
   name: string
+  position: number
   items: TCard[]
   index: number
   refetch: any
@@ -46,10 +47,10 @@ const Column: React.FC<Props> = props => {
   const { id, name, items, index, refetch } = props
   const [deleteColumnMutation] = useMutation(gql(deleteColumn))
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     console.log('delete column', id)
     try {
-      await deleteColumnMutation({variables: {input: {id}}})
+      await deleteColumnMutation({ variables: { input: { id } } })
       await refetch()
     } catch (error) {
       alert(error)
@@ -107,9 +108,7 @@ const Column: React.FC<Props> = props => {
                           ))}
                         {droppableProvided.placeholder}
                       </div>
-                      <AddCard
-                        listId={id}
-                      />
+                      <AddCard listId={id} />
                     </div>
                   )
                 }}

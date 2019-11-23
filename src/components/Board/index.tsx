@@ -4,52 +4,54 @@ import {
   Droppable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
 import { List } from '../'
-import InputAddColumn from './InputAddColumn'
+import InputAddColumn from './AddNewListInput'
 import * as S from './styles'
-import { reorderMultiple, reorderSingleList } from './utils'
-// import { TCard } from '../Card'
 import { listColumns } from '../../graphql/queries'
+import { updateCard } from '../../graphql/mutations'
 
 const Board: React.FC = () => {
-  const { data, refetch } = useQuery(gql(listColumns))
+  const { data, loading, error, refetch } = useQuery(gql(listColumns))
+  const [updateCardMutation] = useMutation(gql(updateCard))
+  const lists: any[] =
+    (data && data.listColumns && data.listColumns.items) || []
+  const numLists: number = lists.length || 0
 
-  // const [itemsMap, setItemsMap] = React.useState<{ [key: string]: TCard[] }>({
-  //   tmp: [{ id: '1', content: 'tmp tmp' }],
-  // })
-
-  const [orderedListKeys, setOrderedListKeys] = React.useState<string[]>([])
-
-  const onDragEnd: OnDragEndResponder = result => {
-    const { source, destination } = result
+  const onDragEnd: OnDragEndResponder = async result => {
+    const { source, destination, type, draggableId } = result
 
     // dropped outside the list
     if (!destination) {
       return
     }
 
-    if (result.type === 'COLUMN') {
-      const newOrderedListKeys = reorderSingleList(
-        orderedListKeys,
-        source.index,
-        destination.index
-      )
-      // return setOrderedListKeys(newOrderedListKeys)
+    if (type === 'COLUMN') {
+      return alert('column reordering is not yet implemented')
     }
 
-    // const { items } = reorderMultiple(itemsMap, source, destination)
-    // setItemsMap(items)
+    // Card reordering in the same list
+    if (source.droppableId === destination.droppableId) {
+      return alert('card reordering is not yet implemented')
+    }
+
+    // Card moving between lists
+    const cardId = draggableId
+    const input = { id: cardId, cardColumnId: destination!.droppableId }
+    await updateCardMutation({ variables: { input } })
+
+    refetch()
   }
 
-  // if (orderedListKeys.length === 0) {
-  //   return renderWalkthrough()
-  // }
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
-  const myLists: any[] =
-    (data && data.listColumns && data.listColumns.items) || []
+  if (error) {
+    return <div>Something went wrong...</div>
+  }
 
   return (
     <React.Fragment>
@@ -65,24 +67,27 @@ const Board: React.FC = () => {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {myLists.map((list, index) => {
-                    return (
-                      <List
-                        id={list.id}
-                        name={list.name}
-                        index={index}
-                        key={list.id}
-                        refetch={refetch}
-                        items={list.cards.items}
-                      />
-                    )
-                  })}
+                  {lists
+                    .sort((a, b) => a.position - b.position)
+                    .map((list, index) => {
+                      return (
+                        <List
+                          id={list.id}
+                          position={list.position}
+                          name={list.name}
+                          index={index}
+                          key={list.id}
+                          refetch={refetch}
+                          items={list.cards.items}
+                        />
+                      )
+                    })}
                 </S.BoardWrapper>
               )
             }}
           </Droppable>
         </DragDropContext>
-        <InputAddColumn refetch={refetch} />
+        <InputAddColumn refetch={refetch} numColumns={numLists} />
       </div>
     </React.Fragment>
   )

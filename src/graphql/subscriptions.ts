@@ -4,8 +4,8 @@
 export const onCreateCard = `subscription OnCreateCard {
   onCreateCard {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -13,8 +13,8 @@ export const onCreateCard = `subscription OnCreateCard {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -25,8 +25,8 @@ export const onCreateCard = `subscription OnCreateCard {
 export const onUpdateCard = `subscription OnUpdateCard {
   onUpdateCard {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -34,8 +34,8 @@ export const onUpdateCard = `subscription OnUpdateCard {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -46,8 +46,8 @@ export const onUpdateCard = `subscription OnUpdateCard {
 export const onDeleteCard = `subscription OnDeleteCard {
   onDeleteCard {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -55,8 +55,8 @@ export const onDeleteCard = `subscription OnDeleteCard {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -72,8 +72,8 @@ export const onCreateColumn = `subscription OnCreateColumn {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name
@@ -93,8 +93,8 @@ export const onUpdateColumn = `subscription OnUpdateColumn {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name
@@ -114,8 +114,8 @@ export const onDeleteColumn = `subscription OnDeleteColumn {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name

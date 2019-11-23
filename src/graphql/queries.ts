@@ -4,8 +4,8 @@
 export const getCard = `query GetCard($id: ID!) {
   getCard(id: $id) {
     id
-    position
     name
+    position
     column {
       id
       name
@@ -13,8 +13,8 @@ export const getCard = `query GetCard($id: ID!) {
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }
@@ -30,8 +30,8 @@ export const listCards = `query ListCards(
   listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      position
       name
+      position
       column {
         id
         name
@@ -53,8 +53,8 @@ export const getColumn = `query GetColumn($id: ID!) {
     cards {
       items {
         id
-        position
         name
+        position
         column {
           id
           name
@@ -79,8 +79,8 @@ export const listColumns = `query ListColumns(
       cards {
         items {
           id
-          position
           name
+          position
         }
         nextToken
       }

@@ -3,17 +3,18 @@ import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-import { Input } from '../'
+import { Input } from '..'
 import { createColumn } from '../../graphql/mutations'
 
 type Props = {
   refetch: any
+  numColumns: number
   placeholder?: string
 }
 
 const AddList: React.FC<Props> = props => {
   const [createColumnMutation] = useMutation(gql(createColumn))
-  const { placeholder, refetch } = props
+  const { placeholder, numColumns, refetch } = props
   const [text, setText] = React.useState<string>('')
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,14 +24,17 @@ const AddList: React.FC<Props> = props => {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     console.log('handlesubmit')
-
+    const input = { name: text, position: numColumns }
+    console.log({ input })
     evt.preventDefault()
     try {
-      await createColumnMutation({ variables: { input: { name: text } } })
+      await createColumnMutation({
+        variables: { input },
+      })
       setText('')
       await refetch()
     } catch (error) {
-      console.log('error')
+      console.log(error)
     }
   }
 
