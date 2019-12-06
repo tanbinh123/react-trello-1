@@ -11,14 +11,16 @@ import { List } from '../'
 import InputAddColumn from './AddNewListInput'
 import * as S from './styles'
 import { listColumns } from '../../graphql/queries'
-import { updateCard } from '../../graphql/mutations'
+import { updateCard, updateColumn } from '../../graphql/mutations'
 
 const Board: React.FC = () => {
   const { data, loading, error, refetch } = useQuery(gql(listColumns))
   const [updateCardMutation] = useMutation(gql(updateCard))
+  const [updateColumnMutation] = useMutation(gql(updateColumn))
   const lists: any[] =
     (data && data.listColumns && data.listColumns.items) || []
-  const numLists: number = lists.length || 0
+
+  const numLists = lists.length || 0
 
   const onDragEnd: OnDragEndResponder = async result => {
     const { source, destination, type, draggableId } = result
@@ -29,17 +31,37 @@ const Board: React.FC = () => {
     }
 
     if (type === 'COLUMN') {
-      return alert('column reordering is not yet implemented')
+      const input = { id: draggableId, position: destination.index }
+      await updateColumnMutation({ variables: { input } })
+
+      // TODO update columns in between source and destination
+
+      return
     }
 
     // Card reordering in the same list
     if (source.droppableId === destination.droppableId) {
-      return alert('card reordering is not yet implemented')
+      const input = { id: draggableId, position: destination.index }
+      await updateCardMutation({ variables: { input } })
+
+      // TODO: update cards in between source and destination
+      // const columnId = source.droppableId
+      // const items = lists.find(list => list.id === columnId).cards.items
+
+      return
     }
 
     // Card moving between lists
     const cardId = draggableId
-    const input = { id: cardId, cardColumnId: destination!.droppableId }
+    const destinationList = lists.find(
+      list => list.id === destination.droppableId
+    )
+    const position = destinationList.cards.items.length
+    const input = {
+      id: cardId,
+      cardColumnId: destination!.droppableId,
+      position,
+    }
     await updateCardMutation({ variables: { input } })
 
     refetch()

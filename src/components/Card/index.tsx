@@ -11,6 +11,7 @@ export type TCard = {
   id: string
   content: string
   name?: string
+  position: number
 }
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
@@ -58,7 +59,7 @@ const Card: React.FC<Props> = props => {
 
   const handleDelete = async () => {
     console.log('handledelete')
-    // removeCard(listId, index)
+    // TODO handle position update of other cards
     try {
       await deleteCardMutation({ variables: { input: { id: item.id } } })
     } catch (error) {

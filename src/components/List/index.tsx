@@ -73,17 +73,19 @@ const Column: React.FC<Props> = props => {
                         style={getListStyle(droppableSnapshot.isDraggingOver)}
                       >
                         {items &&
-                          items.map((item, idx) => (
-                            <Card
-                              item={item}
-                              key={item.id}
-                              index={idx}
-                              listId={id}
-                            />
-                          ))}
+                          items
+                            .sort((a, b) => a.position - b.position)
+                            .map((item, idx) => (
+                              <Card
+                                item={item}
+                                key={item.id}
+                                index={idx}
+                                listId={id}
+                              />
+                            ))}
                         {droppableProvided.placeholder}
                       </div>
-                      <AddCard listId={id} />
+                      <AddCard listId={id} listItems={items} />
                     </div>
                   )
                 }}

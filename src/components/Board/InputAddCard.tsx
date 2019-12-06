@@ -8,10 +8,11 @@ import { createCard } from '../../graphql/mutations'
 
 type Props = {
   listId: string
+  listItems: any[]
 }
 const AddCard: React.FC<Props> = props => {
   const [createCardMutation] = useMutation(gql(createCard))
-  const { listId } = props
+  const { listId, listItems } = props
   const [text, setText] = React.useState('')
 
   const handleBlur = () => {
@@ -26,7 +27,7 @@ const AddCard: React.FC<Props> = props => {
     evt.preventDefault()
     const input = {
       id: uuid(),
-      position: 999,
+      position: listItems.length,
       name: text,
       cardColumnId: listId,
     }

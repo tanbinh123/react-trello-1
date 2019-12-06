@@ -5,11 +5,23 @@ import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd'
 const noop = () => {}
 
 export const basic = () => (
-  <Card item={{ id: '1', content: 'a title' }} index={1} listId="1" />
+  <Card
+    item={{ id: '1', content: 'a title', position: 0 }}
+    index={1}
+    listId="1"
+  />
 )
 
-export const longTtitle = () => (
-  <Card item={{ id: '1', content: 'a veeeeeeeeeeery long title indeed' }} index={1} listId="1" />
+export const longTitle = () => (
+  <Card
+    item={{
+      id: '1',
+      content: 'a veeeeeeeeeeery long title indeed',
+      position: 0,
+    }}
+    index={1}
+    listId="1"
+  />
 )
 
 export default {
