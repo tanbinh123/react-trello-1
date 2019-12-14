@@ -5,6 +5,7 @@ import { gql } from 'apollo-boost'
 
 import { Input } from '..'
 import { createColumn } from '../../graphql/mutations'
+import { CreateColumnMutation, CreateColumnMutationVariables } from '../../API'
 
 type Props = {
   refetch: any
@@ -13,7 +14,10 @@ type Props = {
 }
 
 const AddList: React.FC<Props> = props => {
-  const [createColumnMutation] = useMutation(gql(createColumn))
+  const [createColumnMutation] = useMutation<
+    CreateColumnMutation,
+    CreateColumnMutationVariables
+  >(gql(createColumn))
   const { placeholder, numColumns, refetch } = props
   const [text, setText] = React.useState<string>('')
 

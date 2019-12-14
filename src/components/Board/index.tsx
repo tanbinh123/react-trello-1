@@ -12,11 +12,27 @@ import InputAddColumn from './AddNewListInput'
 import * as S from './styles'
 import { listColumns } from '../../graphql/queries'
 import { updateCard, updateColumn } from '../../graphql/mutations'
+import {
+  ListColumnsQuery,
+  UpdateCardMutation,
+  UpdateCardMutationVariables,
+  UpdateColumnMutation,
+  UpdateColumnMutationVariables,
+} from '../../API'
 
 const Board: React.FC = () => {
-  const { data, loading, error, refetch } = useQuery(gql(listColumns))
-  const [updateCardMutation] = useMutation(gql(updateCard))
-  const [updateColumnMutation] = useMutation(gql(updateColumn))
+  const { data, loading, error, refetch } = useQuery<ListColumnsQuery>(
+    gql(listColumns)
+  )
+  const [updateCardMutation] = useMutation<
+    UpdateCardMutation,
+    UpdateCardMutationVariables
+  >(gql(updateCard))
+  const [updateColumnMutation] = useMutation<
+    UpdateColumnMutation,
+    UpdateColumnMutationVariables
+  >(gql(updateColumn))
+
   const lists: any[] =
     (data && data.listColumns && data.listColumns.items) || []
 
