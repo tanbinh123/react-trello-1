@@ -3,9 +3,9 @@ import * as React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-import { Input } from '..'
-import { createColumn } from '../../graphql/mutations'
-import { CreateColumnMutation, CreateColumnMutationVariables } from '../../API'
+import { Input } from '.'
+import { createColumn } from '../graphql/mutations'
+import { CreateColumnMutation, CreateColumnMutationVariables } from '../API'
 
 type Props = {
   refetch: any

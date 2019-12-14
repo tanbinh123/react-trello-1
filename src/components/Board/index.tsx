@@ -8,7 +8,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
 import { List } from '../'
-import InputAddColumn from './AddNewListInput'
+import AddList from '../AddList'
 import * as S from './styles'
 import { listColumns } from '../../graphql/queries'
 import { updateCard, updateColumn } from '../../graphql/mutations'
@@ -125,7 +125,7 @@ const Board: React.FC = () => {
             }}
           </Droppable>
         </DragDropContext>
-        <InputAddColumn refetch={refetch} numColumns={numLists} />
+        <AddList refetch={refetch} numColumns={numLists} />
       </div>
     </React.Fragment>
   )
