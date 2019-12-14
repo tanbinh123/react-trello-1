@@ -8,12 +8,9 @@ import Card, { TCard } from '../Card'
 import AddCard from '../Board/InputAddCard'
 import { Header } from './Header'
 
-const grid = 8
-
 const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? 'lightblue' : '#e2e4e6',
-  margin: '5px',
-  padding: grid,
+  background: isDraggingOver ? 'lightblue' : '',
+  margin: '10px',
   width: 200,
 })
 
@@ -24,11 +21,6 @@ type Props = {
   items: TCard[]
   index: number
   refetch: any
-  // changeCard(listId: string, index: number, newName: string): void
-  // addCard(listId: string, card: TCard): void
-  // removeCard(listId: string, index: number): void
-  // addList(listName: string): void
-  // removeColumn(id: string): void
 }
 
 const Column: React.FC<Props> = props => {
@@ -36,7 +28,6 @@ const Column: React.FC<Props> = props => {
   const [deleteColumnMutation] = useMutation(gql(deleteColumn))
 
   const handleDelete = async () => {
-    console.log('delete column', id)
     try {
       await deleteColumnMutation({ variables: { input: { id } } })
       await refetch()
@@ -67,7 +58,7 @@ const Column: React.FC<Props> = props => {
               <Droppable droppableId={id}>
                 {(droppableProvided, droppableSnapshot) => {
                   return (
-                    <div>
+                    <div className="flex flex-col items-center">
                       <div
                         ref={droppableProvided.innerRef}
                         style={getListStyle(droppableSnapshot.isDraggingOver)}

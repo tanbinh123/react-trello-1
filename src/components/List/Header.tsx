@@ -75,7 +75,7 @@ export const Header: React.FC<HeaderProps> = props => {
           {name}
         </span>
       )}
-      <span onClick={handleDelete}>
+      <span className="pt-2" onClick={handleDelete}>
         <Popup
           trigger={<Button icon="delete" data-testid="delete-button-list" />}
           content="delete this list"

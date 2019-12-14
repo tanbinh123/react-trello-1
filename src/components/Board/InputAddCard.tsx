@@ -40,7 +40,7 @@ const AddCard: React.FC<Props> = props => {
     }
   }
   return (
-    <div style={{ margin: '0 0 0 13px', padding: '0 0 20px 0' }}>
+    <div className="pb-4">
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
