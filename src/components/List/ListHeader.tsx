@@ -17,7 +17,7 @@ interface HeaderProps {
 
 const MyHeader = styled('div')<HeaderProps>`
   padding: 0px 0 0 8px;
-  margin: 5px;
+  margin: 0 5px 5px 5px;
   display: flex;
   justify-content: space-between;
 `

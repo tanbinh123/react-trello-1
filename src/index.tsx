@@ -35,7 +35,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <div className="bg-blue-500 min-h-screen">
+    <div className="bg-blue-500 min-h-screen overflow-x-hidden">
       <Helmet>
         <title>Definitely Not Trello</title>
       </Helmet>

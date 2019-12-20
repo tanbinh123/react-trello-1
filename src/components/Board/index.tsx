@@ -93,7 +93,7 @@ const Board: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div style={{ flex: 1 }}>
+      <div className="flex overflow-x-auto mt-2">
         <DragDropContext
           // onDragStart={this.onDragStart}
           onDragEnd={onDragEnd}

@@ -11,7 +11,7 @@ import { Header } from './ListHeader'
 
 const getListStyle = (isDraggingOver: boolean) => ({
   background: isDraggingOver ? 'lightblue' : '',
-  margin: '10px',
+  margin: '0 10px 10px',
   width: 200,
 })
 
@@ -38,12 +38,12 @@ const Column: React.FC<Props> = props => {
   }
 
   return (
-    <div style={{ margin: '5px', maxWidth: '300px' }} data-testid="list">
+    <div style={{ maxWidth: '300px' }} data-testid="list">
       <Draggable draggableId={id} index={index}>
         {(provided, snapshot) => {
           return (
             <div
-              className="bg-gray-400 rounded m-2 shadow"
+              className="bg-gray-400 rounded m-2 mt-0 shadow"
               ref={provided.innerRef}
               {...provided.draggableProps}
             >
