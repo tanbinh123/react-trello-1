@@ -17,5 +17,5 @@
     "noImplicitAny": true
   },
   "include": ["src"],
-  "exclude": ["**/stories/*"]
+  "exclude": ["**/*.stories.*"]
 }

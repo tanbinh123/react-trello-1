@@ -8,7 +8,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
 import { List } from '../'
-import AddList from '../AddList'
+import AddList from '../AddList/AddList'
 import * as S from './styles'
 import { listColumns } from '../../graphql/queries'
 import { updateCard, updateColumn } from '../../graphql/mutations'

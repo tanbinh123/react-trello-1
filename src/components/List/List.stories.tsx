@@ -1,13 +1,38 @@
 import React from 'react'
-import { AddList } from '../components'
+import { List } from '.'
 import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd'
 
 const noop = () => {}
 
-export const basic = () => <AddList refetch={noop} numColumns={0} />
+export const empty = () => (
+  <List
+    id={'My List'}
+    position={1}
+    name={'My List'}
+    index={1}
+    key={1}
+    items={[]}
+    refetch={noop}
+  />
+)
+
+export const withItems = () => (
+  <List
+    id={'My List'}
+    position={1}
+    name={'My List'}
+    index={1}
+    key={1}
+    items={[
+      { id: '1', content: 'first' },
+      { id: '2', content: 'second' },
+    ]}
+    refetch={noop}
+  />
+)
 
 export default {
-  title: 'Add List',
+  title: 'List',
   decorators: [
     (storyFn: any) => (
       <DragDropContext onDragEnd={noop}>

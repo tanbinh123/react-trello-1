@@ -1,9 +1,9 @@
 export { default as Board } from './Board'
-export { default as Card } from './Card'
-export { default as List } from './List'
+export { Card } from './Card'
+export { List } from './List'
 export { default as Navbar } from './Navbar'
 export { default as Signup } from './Signup'
-export { default as AddList } from './AddList'
+export { default as AddList } from './AddList/AddList'
 
 export {
   Button,

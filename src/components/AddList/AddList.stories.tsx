@@ -1,31 +1,13 @@
 import React from 'react'
-import { Card } from '../components'
+import { AddList } from '..'
 import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd'
 
 const noop = () => {}
 
-export const basic = () => (
-  <Card
-    item={{ id: '1', content: 'a title', position: 0 }}
-    index={1}
-    listId="1"
-  />
-)
-
-export const longTitle = () => (
-  <Card
-    item={{
-      id: '1',
-      content: 'a veeeeeeeeeeery long title indeed',
-      position: 0,
-    }}
-    index={1}
-    listId="1"
-  />
-)
+export const basic = () => <AddList refetch={noop} numColumns={0} />
 
 export default {
-  title: 'Cards',
+  title: 'Add List',
   decorators: [
     (storyFn: any) => (
       <DragDropContext onDragEnd={noop}>

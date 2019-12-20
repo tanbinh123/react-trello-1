@@ -8,4 +8,5 @@ cache:
 script:
   # - npm run build
   - yarn test
+  - yarn build-storybook
   - yarn e2e

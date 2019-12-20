@@ -23,4 +23,4 @@ addDecorator(storyFn => (
 ))
 
 // automatically import all files ending in *.stories.js
-configure(require.context('../src/stories', true, /\.stories\.tsx$/), module)
+configure(require.context('../src', true, /\.stories\.tsx$/), module)
