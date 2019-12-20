@@ -1,20 +1,19 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { MockedProvider } from '@apollo/react-testing'
 
 import { AddList } from './index'
-// TODO
-// describe('<Login />', () => {
-//   it.skip('matches snapshot', () => {
-//     const { container } = render(<AddList />)
-//     expect(container).toMatchSnapshot()
-//   })
 
-//   it.skip('renders a login box', () => {
-//     const { container } = render(<AddList />)
-//     expect(container).toBeInTheDOM()
-//     expect(container).toHaveTextContent('email')
-//     expect(container).toHaveTextContent('password')
-//     expect(container).toHaveTextContent('Log in')
-//   })
-// })
+const noop = () => {}
+const mocks: [] = []
+
+describe('<AddList />', () => {
+  it('renders without crashing', () => {
+    render(
+      <MockedProvider mocks={mocks}>
+        <AddList refetch={noop} numColumns={0} />
+      </MockedProvider>
+    )
+  })
+})
