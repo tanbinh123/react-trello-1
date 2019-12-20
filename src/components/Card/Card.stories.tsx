@@ -1,8 +1,7 @@
 import React from 'react'
 import { Card } from '..'
-import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd'
 
-const noop = () => {}
+import { DndProvider } from '../utils'
 
 export const basic = () => (
   <Card
@@ -26,28 +25,5 @@ export const longTitle = () => (
 
 export default {
   title: 'Cards',
-  decorators: [
-    (storyFn: any) => (
-      <DragDropContext onDragEnd={noop}>
-        <Droppable droppableId="droppable-1" type="PERSON">
-          {(provided, snapshot) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <Draggable draggableId="draggable-1" index={0}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    {storyFn()}
-                  </div>
-                )}
-              </Draggable>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    ),
-  ],
+  decorators: [(storyFn: any) => <DndProvider>{storyFn()}</DndProvider>],
 }
