@@ -14,6 +14,7 @@ const AddCard: React.FC<Props> = props => {
   const [createCardMutation] = useMutation(gql(createCard))
   const { listId, listItems } = props
   const [text, setText] = React.useState('')
+  const [isLoading, setLoading] = React.useState(false)
 
   const handleBlur = () => {
     setText('')
@@ -25,6 +26,7 @@ const AddCard: React.FC<Props> = props => {
 
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
+    setLoading(true)
     const input = {
       id: uuid(),
       position: listItems.length,
@@ -37,6 +39,8 @@ const AddCard: React.FC<Props> = props => {
       setText('')
     } catch (error) {
       alert(error)
+    } finally {
+      setLoading(false)
     }
   }
   return (
@@ -54,6 +58,7 @@ const AddCard: React.FC<Props> = props => {
           onChange={handleChange}
           onBlur={handleBlur}
           value={text}
+          disabled={isLoading}
         />
       </form>
     </div>

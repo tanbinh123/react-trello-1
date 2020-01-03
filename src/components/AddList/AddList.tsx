@@ -20,6 +20,7 @@ const AddList: React.FC<Props> = props => {
   >(gql(createColumn))
   const { placeholder, numColumns, refetch } = props
   const [text, setText] = React.useState<string>('')
+  const [isLoading, setLoading] = React.useState(false)
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     console.log('handlechange')
@@ -28,6 +29,7 @@ const AddList: React.FC<Props> = props => {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     console.log('handlesubmit')
+    setLoading(true)
     const input = { name: text, position: numColumns }
     console.log({ input })
     evt.preventDefault()
@@ -39,8 +41,14 @@ const AddList: React.FC<Props> = props => {
       await refetch()
     } catch (error) {
       console.log(error)
+    } finally {
+      console.log('finally')
+      setLoading(false)
     }
   }
+  // if (loading) {
+  //   return <Loader />
+  // }
 
   return (
     <div
@@ -57,6 +65,7 @@ const AddList: React.FC<Props> = props => {
           onChange={handleChange}
           value={text}
           data-testid="input-addlist"
+          loading={isLoading}
         />
       </form>
     </div>
