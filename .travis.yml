@@ -6,7 +6,7 @@ cache:
     # - node_modules
     - ~/.cache
 script:
-  # - npm run build
+  - yarn build
   - yarn test
   - yarn build-storybook
   - yarn e2e
