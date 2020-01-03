@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "start": "yarn build:style && react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn build:style && react-scripts build",
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress:open": "cypress open",
+    "cy:open": "cypress open",
     "cy:run": "cypress run",
     "e2e": "start-test start 3000 cy:run",
     "storybook": "start-storybook -p 9009 -s public",
