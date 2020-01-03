@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
@@ -7,6 +7,7 @@ import { gql } from 'apollo-boost'
 import { Button, Popup } from '../'
 import { deleteCard } from '../../graphql/mutations'
 import { CardItem } from '../../types'
+import { Loader } from 'semantic-ui-react'
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   // some basic styles to make the items look a bit nicer
@@ -43,6 +44,7 @@ type Props = {
 export const Card: React.FC<Props> = props => {
   const [deleteCardMutation] = useMutation(gql(deleteCard))
   const { item, index } = props
+  const [isDeleting, setIsDeleting] = useState(false)
 
   // const handleChangeCard = e => {
   //   const newName = e.target.value;
@@ -52,12 +54,14 @@ export const Card: React.FC<Props> = props => {
   // };
 
   const handleDelete = async () => {
-    console.log('handledelete')
+    setIsDeleting(true)
     // TODO handle position update of other cards
     try {
       await deleteCardMutation({ variables: { input: { id: item.id } } })
     } catch (error) {
       alert(error)
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -89,12 +93,16 @@ export const Card: React.FC<Props> = props => {
                 {item.content || item.name}
               </span>
               <span onClick={handleDelete}>
-                <Popup
-                  trigger={
-                    <Button style={{ background: 'inherit' }} icon="delete" />
-                  }
-                  content="delete this card"
-                />
+                {isDeleting ? (
+                  <Loader active inline />
+                ) : (
+                  <Popup
+                    trigger={
+                      <Button style={{ background: 'inherit' }} icon="delete" />
+                    }
+                    content="delete this card"
+                  />
+                )}
               </span>
             </CardName>
           </div>

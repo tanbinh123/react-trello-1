@@ -3,16 +3,17 @@ import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
-import { updateColumn } from '../../graphql/mutations'
+import { updateColumn, deleteColumn } from '../../graphql/mutations'
 import { Button, Popup } from '..'
-import { Form } from 'semantic-ui-react'
+import { Form, Loader } from 'semantic-ui-react'
 
 interface HeaderProps {
   columnId: string
   isDragging: boolean
   dragHandleProps: any
   name: string
-  handleDelete: any
+  id: string
+  refetch: any
 }
 
 const MyHeader = styled('div')<HeaderProps>`
@@ -23,11 +24,25 @@ const MyHeader = styled('div')<HeaderProps>`
 `
 
 export const Header: React.FC<HeaderProps> = props => {
-  const { columnId, isDragging, dragHandleProps, name, handleDelete } = props
+  const { columnId, isDragging, dragHandleProps, name, id, refetch } = props
   const [isEditing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [editingName, setEditingName] = useState(name)
   const [updateColumnMutation] = useMutation(gql(updateColumn))
+  const [deleteColumnMutation] = useMutation(gql(deleteColumn))
+
+  const handleDelete = async () => {
+    setIsDeleting(true)
+    try {
+      await deleteColumnMutation({ variables: { input: { id } } })
+      await refetch()
+    } catch (error) {
+      alert(error)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
 
   const handleDoubleClick = () => {
     setEditing(true)
@@ -76,10 +91,14 @@ export const Header: React.FC<HeaderProps> = props => {
         </span>
       )}
       <span className="pt-2" onClick={handleDelete}>
-        <Popup
-          trigger={<Button icon="delete" data-testid="delete-button-list" />}
-          content="delete this list"
-        />
+        {isDeleting ? (
+          <Loader active inline />
+        ) : (
+          <Popup
+            trigger={<Button icon="delete" data-testid="delete-button-list" />}
+            content="delete this list"
+          />
+        )}
       </span>
     </MyHeader>
   )

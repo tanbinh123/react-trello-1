@@ -1,10 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { useMutation } from '@apollo/react-hooks'
-import { gql } from 'apollo-boost'
 
 import { CardItem } from '../../types'
-import { deleteColumn } from '../../graphql/mutations'
 import { Card } from '../Card'
 import AddCard from '../Board/InputAddCard'
 import { Header } from './ListHeader'
@@ -26,16 +23,6 @@ type Props = {
 
 const Column: React.FC<Props> = props => {
   const { id, name, items, index, refetch } = props
-  const [deleteColumnMutation] = useMutation(gql(deleteColumn))
-
-  const handleDelete = async () => {
-    try {
-      await deleteColumnMutation({ variables: { input: { id } } })
-      await refetch()
-    } catch (error) {
-      alert(error)
-    }
-  }
 
   return (
     <div style={{ maxWidth: '300px' }} data-testid="list">
@@ -52,7 +39,7 @@ const Column: React.FC<Props> = props => {
                 isDragging={snapshot.isDragging}
                 dragHandleProps={provided.dragHandleProps}
                 name={name}
-                handleDelete={handleDelete}
+                {...{ id, refetch }}
                 // {...provided.dragHandleProps}
               />
 
