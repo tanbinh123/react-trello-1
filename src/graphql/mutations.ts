@@ -15,10 +15,13 @@ export const createCard = `mutation CreateCard($input: CreateCardInput!) {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
@@ -36,10 +39,13 @@ export const updateCard = `mutation UpdateCard($input: UpdateCardInput!) {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
@@ -57,10 +63,13 @@ export const deleteCard = `mutation DeleteCard($input: DeleteCardInput!) {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
@@ -78,10 +87,13 @@ export const createColumn = `mutation CreateColumn($input: CreateColumnInput!) {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -99,10 +111,13 @@ export const updateColumn = `mutation UpdateColumn($input: UpdateColumnInput!) {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -120,10 +135,13 @@ export const deleteColumn = `mutation DeleteColumn($input: DeleteColumnInput!) {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -139,9 +157,11 @@ export const createBoard = `mutation CreateBoard($input: CreateBoardInput!) {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -157,9 +177,11 @@ export const updateBoard = `mutation UpdateBoard($input: UpdateBoardInput!) {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -175,9 +197,11 @@ export const deleteBoard = `mutation DeleteBoard($input: DeleteBoardInput!) {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;

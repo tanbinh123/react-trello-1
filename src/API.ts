@@ -137,10 +137,13 @@ export type CreateCardMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
 };
 
@@ -166,10 +169,13 @@ export type UpdateCardMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
 };
 
@@ -195,10 +201,13 @@ export type DeleteCardMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
 };
 
@@ -224,10 +233,13 @@ export type CreateColumnMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -253,10 +265,13 @@ export type UpdateColumnMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -282,10 +297,13 @@ export type DeleteColumnMutation = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -309,9 +327,11 @@ export type CreateBoardMutation = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -335,9 +355,11 @@ export type UpdateBoardMutation = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -361,9 +383,11 @@ export type DeleteBoardMutation = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -389,10 +413,13 @@ export type GetCardQuery = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
 };
 
@@ -419,7 +446,9 @@ export type ListCardsQuery = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       },
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -447,10 +476,13 @@ export type GetColumnQuery = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -475,9 +507,11 @@ export type ListColumnsQuery = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -503,9 +537,11 @@ export type GetBoardQuery = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };
 
@@ -529,12 +565,18 @@ export type ListBoardsQuery = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
+};
+
+export type OnCreateCardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreateCardSubscription = {
@@ -555,11 +597,18 @@ export type OnCreateCardSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
+};
+
+export type OnUpdateCardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateCardSubscription = {
@@ -580,11 +629,18 @@ export type OnUpdateCardSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
+};
+
+export type OnDeleteCardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeleteCardSubscription = {
@@ -605,11 +661,18 @@ export type OnDeleteCardSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         } | null > | null,
         nextToken: string | null,
       } | null,
+      owner: string | null,
     },
+    owner: string | null,
   } | null,
+};
+
+export type OnCreateColumnSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreateColumnSubscription = {
@@ -630,11 +693,18 @@ export type OnCreateColumnSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
+};
+
+export type OnUpdateColumnSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateColumnSubscription = {
@@ -655,11 +725,18 @@ export type OnUpdateColumnSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
+};
+
+export type OnDeleteColumnSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeleteColumnSubscription = {
@@ -680,11 +757,18 @@ export type OnDeleteColumnSubscription = {
           id: string,
           name: string,
           position: number,
+          owner: string | null,
         },
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
+};
+
+export type OnCreateBoardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnCreateBoardSubscription = {
@@ -703,10 +787,16 @@ export type OnCreateBoardSubscription = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
+};
+
+export type OnUpdateBoardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateBoardSubscription = {
@@ -725,10 +815,16 @@ export type OnUpdateBoardSubscription = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
+};
+
+export type OnDeleteBoardSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnDeleteBoardSubscription = {
@@ -747,8 +843,10 @@ export type OnDeleteBoardSubscription = {
           __typename: "ModelCardConnection",
           nextToken: string | null,
         } | null,
+        owner: string | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    owner: string | null,
   } | null,
 };

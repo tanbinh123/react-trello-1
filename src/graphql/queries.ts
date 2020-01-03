@@ -15,10 +15,13 @@ export const getCard = `query GetCard($id: ID!) {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
@@ -39,7 +42,9 @@ export const listCards = `query ListCards(
         cards {
           nextToken
         }
+        owner
       }
+      owner
     }
     nextToken
   }
@@ -59,10 +64,13 @@ export const getColumn = `query GetColumn($id: ID!) {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -81,9 +89,11 @@ export const listColumns = `query ListColumns(
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
     nextToken
   }
@@ -101,9 +111,11 @@ export const getBoard = `query GetBoard($id: ID!) {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
@@ -121,9 +133,11 @@ export const listBoards = `query ListBoards(
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
     nextToken
   }

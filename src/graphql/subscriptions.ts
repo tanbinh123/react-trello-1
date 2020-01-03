@@ -1,8 +1,8 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const onCreateCard = `subscription OnCreateCard {
-  onCreateCard {
+export const onCreateCard = `subscription OnCreateCard($owner: String!) {
+  onCreateCard(owner: $owner) {
     id
     name
     position
@@ -15,15 +15,18 @@ export const onCreateCard = `subscription OnCreateCard {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
-export const onUpdateCard = `subscription OnUpdateCard {
-  onUpdateCard {
+export const onUpdateCard = `subscription OnUpdateCard($owner: String!) {
+  onUpdateCard(owner: $owner) {
     id
     name
     position
@@ -36,15 +39,18 @@ export const onUpdateCard = `subscription OnUpdateCard {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
-export const onDeleteCard = `subscription OnDeleteCard {
-  onDeleteCard {
+export const onDeleteCard = `subscription OnDeleteCard($owner: String!) {
+  onDeleteCard(owner: $owner) {
     id
     name
     position
@@ -57,15 +63,18 @@ export const onDeleteCard = `subscription OnDeleteCard {
           id
           name
           position
+          owner
         }
         nextToken
       }
+      owner
     }
+    owner
   }
 }
 `;
-export const onCreateColumn = `subscription OnCreateColumn {
-  onCreateColumn {
+export const onCreateColumn = `subscription OnCreateColumn($owner: String!) {
+  onCreateColumn(owner: $owner) {
     id
     name
     position
@@ -78,15 +87,18 @@ export const onCreateColumn = `subscription OnCreateColumn {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
-export const onUpdateColumn = `subscription OnUpdateColumn {
-  onUpdateColumn {
+export const onUpdateColumn = `subscription OnUpdateColumn($owner: String!) {
+  onUpdateColumn(owner: $owner) {
     id
     name
     position
@@ -99,15 +111,18 @@ export const onUpdateColumn = `subscription OnUpdateColumn {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
-export const onDeleteColumn = `subscription OnDeleteColumn {
-  onDeleteColumn {
+export const onDeleteColumn = `subscription OnDeleteColumn($owner: String!) {
+  onDeleteColumn(owner: $owner) {
     id
     name
     position
@@ -120,15 +135,18 @@ export const onDeleteColumn = `subscription OnDeleteColumn {
           id
           name
           position
+          owner
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
-export const onCreateBoard = `subscription OnCreateBoard {
-  onCreateBoard {
+export const onCreateBoard = `subscription OnCreateBoard($owner: String!) {
+  onCreateBoard(owner: $owner) {
     id
     name
     columns {
@@ -139,14 +157,16 @@ export const onCreateBoard = `subscription OnCreateBoard {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
-export const onUpdateBoard = `subscription OnUpdateBoard {
-  onUpdateBoard {
+export const onUpdateBoard = `subscription OnUpdateBoard($owner: String!) {
+  onUpdateBoard(owner: $owner) {
     id
     name
     columns {
@@ -157,14 +177,16 @@ export const onUpdateBoard = `subscription OnUpdateBoard {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
-export const onDeleteBoard = `subscription OnDeleteBoard {
-  onDeleteBoard {
+export const onDeleteBoard = `subscription OnDeleteBoard($owner: String!) {
+  onDeleteBoard(owner: $owner) {
     id
     name
     columns {
@@ -175,9 +197,11 @@ export const onDeleteBoard = `subscription OnDeleteBoard {
         cards {
           nextToken
         }
+        owner
       }
       nextToken
     }
+    owner
   }
 }
 `;
