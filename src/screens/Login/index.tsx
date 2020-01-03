@@ -1,11 +1,10 @@
-import { Formik } from 'formik'
 import * as React from 'react'
+
+import { Formik } from 'formik'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
 import { Button, Divider, Form, Input, Label, Progress } from '../../components'
-// import * as Yup from "yup";
-
-import * as S from './styles'
+import * as Yup from 'yup'
 
 type Props = {} & RouteComponentProps
 
@@ -24,66 +23,63 @@ const Login: React.FC<Props> = props => {
   }
 
   return (
-    <S.OuterWrapper>
-      <S.InnerWrapper>
-        <h2>Log in to get access to your board</h2>
-        <Formik
-          initialValues={{
-            email: 'testdrive@react-trello.com',
-            password: 'testdrive',
-          }}
-          onSubmit={async ({ email, password }, { setSubmitting }) => {
-            setSubmitting(true)
-            const error = await handleLogin({ email, password })
-            if (error) {
-              console.warn('error', error)
-            }
-            setSubmitting(false)
-          }}
+    <Formik
+      initialValues={{
+        email: 'testdrive@react-trello.com',
+        password: 'testdrive',
+      }}
+      onSubmit={async ({ email, password }, { setSubmitting }) => {
+        setSubmitting(true)
+        const error = await handleLogin({ email, password })
+        if (error) {
+          console.warn('error', error)
+        }
+        setSubmitting(false)
+      }}
+      validationSchema={Yup.object().shape({
+        email: Yup.string()
+          .email()
+          .required(),
+        password: Yup.string().required(),
+      })}
 
-          // {
-          //   handleSubmit: myHandleSubmit,
-          //   mapPropsToValues: () => ({ email: 'testdrive@react-trello.com', password: 'testdrive' }),
-          //   validationSchema: Yup.object().shape({
-          //     email: Yup.string()
-          //       .email()
-          //       .required(),
-          //     password: Yup.string().required(),
-          //   }),
-          // }
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleReset,
-            handleSubmit,
-            isSubmitting,
-            dirty,
-          }) => {
-            if (isSubmitting) {
-              return (
-                <div
-                  style={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <div style={{ width: '50%' }}>
-                    <Progress percent={100} indicating />
-                  </div>
-                  <h2>Looking for the keys ...</h2>
-                </div>
-              )
-            }
+      // {
+      //   handleSubmit: myHandleSubmit,
+      //   mapPropsToValues: () => ({ email: 'testdrive@react-trello.com', password: 'testdrive' }),
 
-            return (
-              <Form onSubmit={handleSubmit}>
+      // }
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleReset,
+        handleSubmit,
+        isSubmitting,
+        dirty,
+        isValid,
+      }) => {
+        if (isSubmitting) {
+          return (
+            <div className="flex items-center flex-col h-full justify-center">
+              <div className="w-full">
+                <Progress percent={100} indicating />
+              </div>
+              <h2>Looking for the keys ...</h2>
+            </div>
+          )
+        }
+
+        return (
+          <Form onSubmit={handleSubmit}>
+            <div className="flex justify-center">
+              <div className="w-1/2">
+                <h1 className="text-3xl text-center">Log in </h1>
+                <h2 className="text-2xl text-center">
+                  to get access to your board
+                </h2>
                 <Form.Field>
                   <Label pointing="below" htmlFor="email">
                     Your Email
@@ -97,7 +93,9 @@ const Login: React.FC<Props> = props => {
                     onBlur={handleBlur}
                   />
                   {errors.email && touched.email && (
-                    <S.Warning>A valid email is required</S.Warning>
+                    <p className="text-yellow-500 text-2xl">
+                      Your valid email is required
+                    </p>
                   )}
                 </Form.Field>
                 <Divider />
@@ -114,33 +112,35 @@ const Login: React.FC<Props> = props => {
                     onBlur={handleBlur}
                   />
                   {errors.password && touched.password && (
-                    <S.Warning>Enter your password</S.Warning>
+                    <p className="text-yellow-500 text-2xl">
+                      Enter your password
+                    </p>
                   )}
                 </Form.Field>
-                <Button
+                {/* <Button
                   type="button"
                   className="outline"
                   onClick={handleReset}
                   disabled={!dirty || isSubmitting}
                 >
                   Reset
-                </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                </Button> */}
+                <Button type="submit" disabled={isSubmitting || !isValid}>
                   Submit
                 </Button>
-                {errors && (
-                  <h2>
-                    No such user found. Maybe try{' '}
-                    <Link to="/signup">signing up</Link>
-                  </h2>
-                )}
-              </Form>
-            )
-          }}
-        </Formik>
-        <br />
-      </S.InnerWrapper>
-    </S.OuterWrapper>
+
+                <h2 className="text-2xl mt-8">
+                  Or{' '}
+                  <Link to="/signup" className="text-blue underline">
+                    sign up
+                  </Link>
+                </h2>
+              </div>
+            </div>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 
