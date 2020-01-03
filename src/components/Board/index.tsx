@@ -9,7 +9,6 @@ import { gql } from 'apollo-boost'
 
 import { List } from '../'
 import AddList from '../AddList/AddList'
-import * as S from './styles'
 import { listColumns } from '../../graphql/queries'
 import { updateCard, updateColumn } from '../../graphql/mutations'
 import {
@@ -101,7 +100,9 @@ const Board: React.FC = () => {
           <Droppable droppableId="board" type="COLUMN" direction="horizontal">
             {provided => {
               return (
-                <S.BoardWrapper
+                <div
+                  className="inline-flex"
+                  style={{ minHeight: 'calc(100vh - 6rem)' }}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -120,7 +121,7 @@ const Board: React.FC = () => {
                         />
                       )
                     })}
-                </S.BoardWrapper>
+                </div>
               )
             }}
           </Droppable>
