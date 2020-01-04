@@ -6,7 +6,10 @@ cache:
     # - node_modules
     - ~/.cache
 script:
+  - npm install codecov -g
   - yarn build
   - yarn test
   - yarn build-storybook
   - yarn e2e
+after_success:
+  - codecov
