@@ -3,8 +3,17 @@ import * as React from 'react'
 import { Formik } from 'formik'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
-import { Button, Divider, Form, Input, Label, Progress } from '../../components'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  Label,
+  Progress,
+  Icon,
+} from '../../components'
 import * as Yup from 'yup'
+import { Message } from 'semantic-ui-react'
 
 type Props = {} & RouteComponentProps
 
@@ -25,8 +34,8 @@ const Login: React.FC<Props> = props => {
   return (
     <Formik
       initialValues={{
-        email: 'testdrive@react-trello.com',
-        password: 'testdrive',
+        email: '',
+        password: '',
       }}
       onSubmit={async ({ email, password }, { setSubmitting }) => {
         setSubmitting(true)
@@ -86,7 +95,7 @@ const Login: React.FC<Props> = props => {
                   </Label>
                   <Input
                     id="email"
-                    type="text"
+                    type="email"
                     placeholder="Your email..."
                     value={values.email}
                     onChange={handleChange}
@@ -128,6 +137,17 @@ const Login: React.FC<Props> = props => {
                 <Button type="submit" disabled={isSubmitting || !isValid}>
                   Submit
                 </Button>
+
+                <Message icon>
+                  <Icon name="idea" />
+                  <Message.Content>
+                    <Message.Header>
+                      Just want to try this app out?
+                    </Message.Header>
+                    You can use these credentials: email:
+                    'testdrive@react-trello.now.sh', password: 'testdrive'
+                  </Message.Content>
+                </Message>
 
                 <h2 className="text-2xl mt-8">
                   Or{' '}
