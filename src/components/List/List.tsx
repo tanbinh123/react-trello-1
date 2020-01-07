@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 
 import { CardItem } from '../../types'
@@ -23,23 +23,52 @@ type Props = {
 
 const Column: React.FC<Props> = props => {
   const { id, name, items, index, refetch } = props
+  const [isFolded, setFolded] = useState(false)
 
+  const toggleFold = () => {
+    console.log('toggle')
+    setFolded(prev => !prev)
+  }
+
+  if (isFolded) {
+    return (
+      <div style={{ position: 'relative', width: '30px' }}>
+        <div
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+          <div
+            onClick={toggleFold}
+            style={{
+              transform: 'rotate(90deg)',
+              cursor: 'pointer',
+              fontSize: '24px',
+              marginLeft: '10px',
+              letterSpacing: '1px',
+            }}
+          >
+            <span
+              style={{ textTransform: 'uppercase', fontStyle: 'italic' }}
+              className="mt-16"
+            >
+              {name}
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div style={{ maxWidth: '300px' }} data-testid="list">
       <Draggable draggableId={id} index={index}>
         {(provided, snapshot) => {
           return (
-            <div
-              className="bg-gray-400 rounded m-2 mt-0 shadow"
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-            >
+            <div className="bg-gray-400 rounded m-2 mt-0 shadow">
               <Header
                 columnId={id}
                 isDragging={snapshot.isDragging}
                 dragHandleProps={provided.dragHandleProps}
                 name={name}
-                {...{ id, refetch }}
+                {...{ id, refetch, toggleFold }}
                 // {...provided.dragHandleProps}
               />
 

@@ -14,17 +14,26 @@ interface HeaderProps {
   name: string
   id: string
   refetch: any
+  toggleFold(): void
 }
 
 const MyHeader = styled('div')<HeaderProps>`
-  padding: 0px 0 0 8px;
+  padding: 5px 0 0 8px;
   margin: 0 5px 5px 5px;
   display: flex;
   justify-content: space-between;
 `
 
 export const Header: React.FC<HeaderProps> = props => {
-  const { columnId, isDragging, dragHandleProps, name, id, refetch } = props
+  const {
+    columnId,
+    isDragging,
+    dragHandleProps,
+    name,
+    id,
+    refetch,
+    toggleFold,
+  } = props
   const [isEditing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -54,7 +63,6 @@ export const Header: React.FC<HeaderProps> = props => {
     }
     setLoading(true)
     const input = { id: columnId, name: editingName }
-    console.log({ input })
     try {
       await updateColumnMutation({ variables: { input } })
     } catch (error) {
@@ -90,15 +98,26 @@ export const Header: React.FC<HeaderProps> = props => {
           {name}
         </span>
       )}
-      <span className="pt-2" onClick={handleDelete}>
-        {isDeleting ? (
-          <Loader active inline />
-        ) : (
-          <Popup
-            trigger={<Button icon="delete" data-testid="delete-button-list" />}
-            content="delete this list"
-          />
-        )}
+      <span>
+        <span onClick={() => toggleFold()}>
+          <Button icon="resize horizontal" size="tiny" />
+        </span>
+        <span onClick={handleDelete}>
+          {isDeleting ? (
+            <Loader active inline />
+          ) : (
+            <Popup
+              trigger={
+                <Button
+                  icon="delete"
+                  size="mini"
+                  data-testid="delete-button-list"
+                />
+              }
+              content="delete this list"
+            />
+          )}
+        </span>
       </span>
     </MyHeader>
   )

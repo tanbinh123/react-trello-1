@@ -28,4 +28,15 @@ describe('<List />', () => {
       </MockedProvider>
     )
   })
+
+  it('folds on fold button press', () => {
+    render(
+      <MockedProvider mocks={mocks}>
+        <DndProvider>
+          <List {...props} />
+        </DndProvider>
+      </MockedProvider>
+    )
+    expect(true).toBe(false)
+  })
 })
