@@ -5,6 +5,8 @@
 ![`board`](http://g.recordit.co/jEHkR4C7BJ.gif)
 A [Trello](trello.com) clone, written with React. 
 
+Play with it at [https://react-trello.now.sh/](https://react-trello.now.sh/)
+
 ### Why
 
 I use this project to play around with some technologies. Namely: 
