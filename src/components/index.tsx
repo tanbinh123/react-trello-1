@@ -2,6 +2,7 @@ export { default as Board } from './Board'
 export { Card } from './Card'
 export { List } from './List'
 export { Navbar } from './Navbar'
+export { Timer } from './Timer'
 export { default as Signup } from './Signup'
 export { default as AddList } from './AddList/AddList'
 

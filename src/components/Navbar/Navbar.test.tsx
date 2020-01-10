@@ -5,12 +5,22 @@ import { MemoryRouter } from 'react-router'
 
 import { Navbar } from './index'
 
+const Component = () => (
+  <MemoryRouter>
+    <Navbar />
+  </MemoryRouter>
+)
+
 describe('<Navbar />', () => {
   it('renders without crashing', () => {
-    render(
-      <MemoryRouter>
-        <Navbar />
-      </MemoryRouter>
-    )
+    render(<Component />)
+  })
+  it('contains timer button', () => {
+    const { getByTestId } = render(<Component />)
+    getByTestId('timer-button')
+  })
+  it('contains logout button', () => {
+    const { getByTestId } = render(<Component />)
+    getByTestId('logout-button')
   })
 })

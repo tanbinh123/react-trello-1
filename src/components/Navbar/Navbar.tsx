@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '..'
+import { Button, Icon, Popup, Timer } from '..'
 
 import { handleLogout } from '../../utils'
 
@@ -10,7 +10,20 @@ const Navbar = () => {
       <div />
       <Link to="/">{/* <S.Logo src={logo} alt="" /> */}</Link>
       <div>
-        <Button onClick={handleLogout}>Sign out</Button>
+        <Popup
+          content={<Timer />}
+          header="Timer"
+          position="top center"
+          on="click"
+          trigger={
+            <Button icon data-testid="timer-button">
+              <Icon name="clock outline" />
+            </Button>
+          }
+        />
+        <Button data-testid="logout-button" onClick={handleLogout}>
+          Sign out
+        </Button>
       </div>
     </nav>
   )
