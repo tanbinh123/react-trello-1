@@ -1,22 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Icon, Popup, Timer } from '..'
 
 import { handleLogout } from '../../utils'
 
 const Navbar = () => {
+  // trick to keep the timer mounted at all times
+  // and thus keep its state between show and hide
+  const [showTimer, setShowTimer] = useState(false)
   return (
     <nav className="h-16 flex justify-between items-center bg-blue-700">
       <div />
       <Link to="/">{/* <S.Logo src={logo} alt="" /> */}</Link>
       <div>
         <Popup
+          open={true}
+          style={{
+            zIndex: showTimer ? 1 : -1,
+          }}
           content={<Timer />}
           header="Timer"
           position="top center"
           on="click"
           trigger={
-            <Button icon data-testid="timer-button">
+            <Button
+              onClick={() => setShowTimer(prev => !prev)}
+              icon
+              data-testid="timer-button"
+            >
               <Icon name="clock outline" />
             </Button>
           }
