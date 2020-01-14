@@ -51,12 +51,6 @@ const Login: React.FC<Props> = props => {
           .required(),
         password: Yup.string().required(),
       })}
-
-      // {
-      //   handleSubmit: myHandleSubmit,
-      //   mapPropsToValues: () => ({ email: 'testdrive@react-trello.com', password: 'testdrive' }),
-
-      // }
     >
       {({
         values,
@@ -69,6 +63,7 @@ const Login: React.FC<Props> = props => {
         isSubmitting,
         dirty,
         isValid,
+        resetForm,
       }) => {
         if (isSubmitting) {
           return (
@@ -138,14 +133,27 @@ const Login: React.FC<Props> = props => {
                   Submit
                 </Button>
 
-                <Message icon>
+                <Message icon info size="tiny">
                   <Icon name="idea" />
                   <Message.Content>
                     <Message.Header>
-                      Just want to try this app out?
+                      Just want to try the app out?
                     </Message.Header>
-                    You can use these credentials: email:
-                    'testdrive@react-trello.now.sh', password: 'testdrive'
+                    You can use these credentials:
+                    <pre>testdrive@react-trello.now.sh</pre>
+                    <pre>testdrive</pre>
+                    <Button
+                      onClick={() =>
+                        resetForm({
+                          values: {
+                            email: 'testdrive@react-trello.now.sh',
+                            password: 'testdrive',
+                          },
+                        })
+                      }
+                    >
+                      Try out
+                    </Button>
                   </Message.Content>
                 </Message>
 
