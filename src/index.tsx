@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet'
 import 'semantic-ui-css/semantic.min.css'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
+import * as Sentry from '@sentry/browser'
 
 // import './index.css'
 import './styles/tailwind.css'
@@ -17,6 +18,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { LandingPage, Home, Login } from './screens'
 
 Amplify.configure(awsConfig)
+Sentry.init({
+  dsn: 'https://171e03e38c9b4b259180e3a4b444504d@sentry.io/1881240',
+})
 
 const client = new ApolloClient({
   uri: awsConfig.aws_appsync_graphqlEndpoint,
