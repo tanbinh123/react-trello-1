@@ -62,14 +62,14 @@ const Timer: React.FC = () => {
             <Icon
               name="pause"
               size="big"
-              color="grey"
+              color="blue"
               data-testid="button-pause"
               onClick={handlePause}
             />
             <Icon
               name="stop"
               size="big"
-              color="grey"
+              color="blue"
               data-testid="button-stop"
               onClick={handleStop}
             />
@@ -79,14 +79,14 @@ const Timer: React.FC = () => {
             <Icon
               name="play"
               size="big"
-              color="grey"
+              color="blue"
               data-testid="button-play"
               onClick={handlePlay}
             />
             <Icon
               name="stop"
               size="big"
-              color="grey"
+              color="blue"
               data-testid="button-stop"
               onClick={handleStop}
             />
