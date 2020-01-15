@@ -67,23 +67,25 @@ const Login: React.FC<Props> = props => {
       }) => {
         if (isSubmitting) {
           return (
-            <div className="flex items-center flex-col h-full justify-center">
-              <div className="w-full">
+            <div className="flex items-center flex-col h-full justify-center h-screen">
+              <div>
                 <Progress percent={100} indicating />
+                <h2 className="text-5xl text-center text-white">
+                  Logging you in...
+                </h2>
               </div>
-              <h2>Looking for the keys ...</h2>
             </div>
           )
         }
 
         return (
           <Form onSubmit={handleSubmit}>
-            <div className="flex justify-center">
+            <div className="flex justify-center" style={{ marginTop: '10vh' }}>
               <div className="w-1/2">
-                <h1 className="text-3xl text-center">Log in </h1>
-                <h2 className="text-2xl text-center">
-                  to get access to your board
-                </h2>
+                <h1 className="text-5xl text-center mb-2 text-white">
+                  Log in to your board
+                </h1>
+                {/* <h2 className="text-2xl mb-2">to get access to your board</h2> */}
                 <Form.Field>
                   <Label pointing="below" htmlFor="email">
                     Your Email
@@ -139,21 +141,27 @@ const Login: React.FC<Props> = props => {
                     <Message.Header>
                       Just want to try the app out?
                     </Message.Header>
-                    You can use these credentials:
-                    <pre>testdrive@react-trello.now.sh</pre>
-                    <pre>testdrive</pre>
-                    <Button
-                      onClick={() =>
-                        resetForm({
-                          values: {
-                            email: 'testdrive@react-trello.now.sh',
-                            password: 'testdrive',
-                          },
-                        })
-                      }
-                    >
-                      Try out
-                    </Button>
+                    <div className="flex justify-between">
+                      <div>
+                        You can use these credentials:
+                        <pre>testdrive@react-trello.now.sh</pre>
+                        <pre>testdrive</pre>
+                      </div>
+                      <Button
+                        className="self-start"
+                        color="blue"
+                        onClick={() =>
+                          resetForm({
+                            values: {
+                              email: 'testdrive@react-trello.now.sh',
+                              password: 'testdrive',
+                            },
+                          })
+                        }
+                      >
+                        Try out
+                      </Button>
+                    </div>
                   </Message.Content>
                 </Message>
 

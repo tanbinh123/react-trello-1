@@ -24,6 +24,7 @@ const Navbar = () => {
           on="click"
           trigger={
             <Button
+              color="blue"
               onClick={() => setShowTimer(prev => !prev)}
               icon
               data-testid="timer-button"
@@ -32,7 +33,7 @@ const Navbar = () => {
             </Button>
           }
         />
-        <Button data-testid="logout-button" onClick={handleLogout}>
+        <Button color="blue" data-testid="logout-button" onClick={handleLogout}>
           Sign out
         </Button>
       </div>
