@@ -1,112 +1,91 @@
-// import PropTypes from 'prop-types'
-import * as React from 'react'
-import { Link } from 'react-router-dom'
-import {
-  Button,
-  Container,
-  Header,
-  Icon,
-  Menu,
-  Responsive,
-  Segment,
-  // Sidebar,
-  Visibility,
-} from '../../components'
+import React from 'react'
 
-export const HomepageHeading: React.FC = () => (
-  <Container text={true}>
-    <Header
-      as="h1"
-      content="Your new Kanban Board"
-      inverted={true}
-      style={{
-        fontSize: '4em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: '3em',
-      }}
-    />
-    <Header
-      as="h2"
-      content="Be more productive."
-      inverted={true}
-      style={{
-        fontSize: '1.7em',
-        fontWeight: 'normal',
-        marginTop: '1.5em',
-      }}
-    />
-    <Button as={Link} to="/app" primary={true} size="huge">
-      Get Started
-      <Icon name="arrow right" />
-    </Button>
-  </Container>
-)
+import { useSpring, animated } from 'react-spring'
+import { Link, RouteComponentProps } from 'react-router-dom'
+import { Auth } from 'aws-amplify'
 
-class DesktopContainer extends React.Component<any, any> {
-  state = { fixed: false }
+import { Button } from '../../components'
+import Hero from './dev.svg'
+import { DEMO_USERNAME, DEMO_PASSWORD } from '../../utils'
 
-  hideFixedMenu = () => this.setState({ fixed: false })
-  showFixedMenu = () => this.setState({ fixed: true })
+type Props = {} & RouteComponentProps
 
-  render() {
-    const { children } = this.props
-    const { fixed } = this.state
+const LandingPage: React.FC<Props> = props => {
+  // @ts-ignore
+  const { radians } = useSpring({
+    to: async (next: any) => {
+      while (1) await next({ radians: 2 * Math.PI })
+    },
+    from: { radians: 0 },
+    config: { duration: 3500 },
+    reset: true,
+  })
 
-    return (
-      <Responsive {...Responsive.onlyComputer}>
-        <Visibility
-          once={false}
-          onBottomPassed={this.showFixedMenu}
-          onBottomPassedReverse={this.hideFixedMenu}
-        >
-          <Segment
-            inverted={true}
-            textAlign="center"
-            style={{
-              minHeight: 700,
-              padding: '1em 0em',
-              backgroundColor: '#0079bf',
-            }}
-            vertical={true}
-          >
-            <Menu
-              fixed={fixed ? 'top' : undefined}
-              inverted={!fixed}
-              pointing={!fixed}
-              secondary={!fixed}
-              size="large"
-            >
-              <Container>
-                <Menu.Item as="a" active={true}>
-                  Home
-                </Menu.Item>
-                {/* <Menu.Item as="a">Work</Menu.Item>
-                <Menu.Item as="a">Company</Menu.Item>
-                <Menu.Item as="a">Careers</Menu.Item> */}
-                <Menu.Item position="right">
-                  <Button as={Link} to="/login" inverted={!fixed}>
-                    Log in
-                  </Button>
-                  <Button
-                    as={Link}
-                    to="/signup"
-                    inverted={!fixed}
-                    primary={fixed}
-                    style={{ marginLeft: '0.5em' }}
-                  >
-                    Sign Up
-                  </Button>
-                </Menu.Item>
-              </Container>
-            </Menu>
-            <HomepageHeading />
-          </Segment>
-        </Visibility>
-        {children}
-      </Responsive>
-    )
+  const handleDemoLogin = async () => {
+    try {
+      await Auth.signIn(DEMO_USERNAME, DEMO_PASSWORD)
+      props.history.push('/app')
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
+  return (
+    <div>
+      <section
+        className="hero px-12"
+        style={{ height: '100vh', backgroundColor: '#f8faff' }}
+      >
+        <header className="flex justify-between py-5">
+          <div className="left">
+            <span className="text-xl font-bold">Not Trello</span>
+            {/* <span className="pl-8">Platform</span>
+            <span className="pl-8">Resources</span> */}
+          </div>
+          <div className="right">
+            <Button basic>
+              <Link to="/login">Sign In</Link>{' '}
+            </Button>
+            <Button color="blue">
+              <Link to="/app">Get Started</Link>
+            </Button>
+          </div>
+        </header>
+        <div className="flex pt-12">
+          <div className="left  mt-24" style={{ flex: 4 }}>
+            <h1 className="text-6xl mb-8">Be more productive than ever</h1>
+            <p className="text-xl mb-6">
+              Use this Kanban Board with extra goodies like a Pomodoro Timer.
+            </p>
+            <Button size="big" color="blue">
+              <Link to="/app">Get Started</Link>
+            </Button>
+            <Button size="big" basic onClick={handleDemoLogin}>
+              Live Demo
+            </Button>
+          </div>
+          <div className="right flex justify-end" style={{ flex: 6 }}>
+            {/* <picture> */}
+            <animated.div
+              style={{
+                width: '85%',
+                transform: radians.interpolate(
+                  (r: any) =>
+                    `translate3d(0, ${5 *
+                      Math.sin(r + (2 * Math.PI) / 1.6)}px, 0)`
+                ),
+              }}
+            >
+              <img src={Hero} alt="" style={{}} />
+            </animated.div>
+            {/* </picture> */}
+          </div>
+        </div>
+      </section>
+
+      <section></section>
+    </div>
+  )
 }
 
-export default DesktopContainer
+export default LandingPage

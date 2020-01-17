@@ -9,13 +9,12 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import * as Sentry from '@sentry/browser'
 
-// import './index.css'
 import './styles/tailwind.css'
 import * as serviceWorker from './serviceWorker'
 import awsConfig from './aws-exports'
 import { Signup } from './components'
 import ProtectedRoute from './components/ProtectedRoute'
-import { LandingPage, Home, Login } from './screens'
+import { LandingPage, App, Login } from './screens'
 
 Amplify.configure(awsConfig)
 Sentry.init({
@@ -39,7 +38,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <div className="bg-blue-500 min-h-screen overflow-x-hidden">
+    <div>
       <Helmet>
         <title>Definitely Not Trello</title>
       </Helmet>
@@ -48,7 +47,7 @@ ReactDOM.render(
           <Route path="/" exact component={LandingPage} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
-          <ProtectedRoute path="/app" exact component={Home} />
+          <ProtectedRoute path="/app" exact component={App} />
         </Switch>
       </BrowserRouter>
     </div>

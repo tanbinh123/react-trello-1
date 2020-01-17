@@ -6,13 +6,13 @@ type Props = {
   handleLogout(): void
 }
 
-const Home: React.FC<Props> = () => {
+const App: React.FC<Props> = () => {
   return (
-    <React.Fragment>
+    <div className="bg-blue-500 min-h-screen overflow-x-hidden">
       <Navbar />
       <Board />
-    </React.Fragment>
+    </div>
   )
 }
 
-export default Home
+export default App
