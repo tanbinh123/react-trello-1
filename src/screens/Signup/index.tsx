@@ -1,16 +1,18 @@
 import { Auth } from 'aws-amplify'
 import React, { Fragment, useState } from 'react'
-import { Button, Divider, Form, Input, Label } from '..'
-import styled from 'styled-components'
+import { Button, Divider, Form, Input, Label } from '../../components'
 import { RouteComponentProps } from 'react-router-dom'
 
-const SignupWrapper = styled.section`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
+const SignupWrapper: React.FC = ({ children }) => {
+  return (
+    <div
+      className="flex flex-1 flex-col items-center bg-blue-500 h-screen"
+      style={{ paddingTop: '10vh' }}
+    >
+      {children}
+    </div>
+  )
+}
 
 type Props = {} & RouteComponentProps
 
@@ -77,9 +79,7 @@ const Signup: React.FC<Props> = props => {
       <Fragment>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <Label pointing="below" htmlFor="">
-              Your email
-            </Label>
+            <Label pointing="below">Email</Label>
             <Input
               type="email"
               name="email"
@@ -94,18 +94,18 @@ const Signup: React.FC<Props> = props => {
 
           <Form.Field>
             <Label pointing="below" htmlFor="">
-              Your Password
+              Password
             </Label>
             <Input
               type="password"
               name="password"
               id="password"
-              placeholder="Enter your password..."
+              placeholder="Enter a password..."
               value={password}
               onChange={handleChange}
             />
           </Form.Field>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Register</Button>
         </Form>
       </Fragment>
     )
@@ -116,7 +116,7 @@ const Signup: React.FC<Props> = props => {
   }
   return (
     <SignupWrapper>
-      <h1 style={{ color: 'white' }}>Sign up here</h1>
+      <h1 className="text-white text-5xl mb-2">Sign up</h1>
       {newUser ? renderConfirmationForm() : renderForm()}
     </SignupWrapper>
   )

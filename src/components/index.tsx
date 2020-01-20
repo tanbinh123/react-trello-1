@@ -3,7 +3,7 @@ export { Card } from './Card'
 export { List } from './List'
 export { Navbar } from './Navbar'
 export { Timer } from './Timer'
-export { default as Signup } from './Signup'
+export { default as Signup } from '../screens/Signup'
 export { default as AddList } from './AddList/AddList'
 
 export {

@@ -81,7 +81,7 @@ const Login: React.FC<Props> = props => {
         return (
           <Form onSubmit={handleSubmit}>
             <div
-              className="flex justify-center bg-blue-500"
+              className="flex justify-center bg-blue-500 h-screen"
               style={{ paddingTop: '10vh' }}
             >
               <div className="w-1/2">
