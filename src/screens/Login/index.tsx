@@ -80,7 +80,10 @@ const Login: React.FC<Props> = props => {
 
         return (
           <Form onSubmit={handleSubmit}>
-            <div className="flex justify-center" style={{ marginTop: '10vh' }}>
+            <div
+              className="flex justify-center bg-blue-500"
+              style={{ paddingTop: '10vh' }}
+            >
               <div className="w-1/2">
                 <h1 className="text-5xl text-center mb-2 text-white">
                   Log in to your board
