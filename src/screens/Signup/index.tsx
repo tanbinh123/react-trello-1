@@ -1,15 +1,15 @@
 import { Auth } from 'aws-amplify'
-import React, { Fragment, useState } from 'react'
-import { Button, Divider, Form, Input, Label } from '../../components'
+import React, { useState } from 'react'
+import { Button, Divider, Form, Input } from '../../components'
 import { RouteComponentProps } from 'react-router-dom'
 
 const SignupWrapper: React.FC = ({ children }) => {
   return (
     <div
-      className="flex flex-1 flex-col items-center bg-blue-500 h-screen"
-      style={{ paddingTop: '10vh' }}
+      className="flex flex-1 flex-col items-center h-screen"
+      style={{ paddingTop: '10vh', backgroundColor: '#f5f5f5' }}
     >
-      {children}
+      <div className="bg-white p-8 rounded shadow-2xl">{children}</div>
     </div>
   )
 }
@@ -60,29 +60,37 @@ const Signup: React.FC<Props> = props => {
 
   const renderConfirmationForm = () => {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <label htmlFor="">Your confirmation code</label>
-        <input
-          type="text"
-          name="confirmationCode"
-          id="confirmationCode"
-          value={confirmationCode}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <Form className="flex flex-col" onSubmit={handleConfirmationSubmit}>
+        <label htmlFor="confirmationCode" className="text-center">
+          Your confirmation code:
+        </label>
+        <Form.Field>
+          <Input
+            type="text"
+            name="confirmationCode"
+            id="confirmationCode"
+            placeholder="confirmation code..."
+            value={confirmationCode}
+            onChange={handleChange}
+          />
+        </Form.Field>
+        <Button type="submit" color="green">
+          Submit
+        </Button>
+      </Form>
     )
   }
 
   const renderForm = () => {
     return (
-      <Fragment>
+      <>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <Label pointing="below">Email</Label>
             <Input
               type="email"
               name="email"
+              icon="mail"
+              iconPosition="left"
               id="email"
               placeholder="Enter your email..."
               value={email}
@@ -93,21 +101,22 @@ const Signup: React.FC<Props> = props => {
           <Divider />
 
           <Form.Field>
-            <Label pointing="below" htmlFor="">
-              Password
-            </Label>
             <Input
               type="password"
               name="password"
+              icon="lock"
+              iconPosition="left"
               id="password"
               placeholder="Enter a password..."
               value={password}
               onChange={handleChange}
             />
           </Form.Field>
-          <Button type="submit">Register</Button>
+          <Button type="submit" fluid color="green">
+            Continue
+          </Button>
         </Form>
-      </Fragment>
+      </>
     )
   }
 
@@ -116,7 +125,7 @@ const Signup: React.FC<Props> = props => {
   }
   return (
     <SignupWrapper>
-      <h1 className="text-white text-5xl mb-2">Sign up</h1>
+      <h1 className=" text-3xl mb-2 text-center">Sign up</h1>
       {newUser ? renderConfirmationForm() : renderForm()}
     </SignupWrapper>
   )

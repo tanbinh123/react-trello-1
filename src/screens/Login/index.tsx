@@ -3,15 +3,7 @@ import * as React from 'react'
 import { Formik } from 'formik'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  Label,
-  Progress,
-  Icon,
-} from '../../components'
+import { Button, Divider, Form, Input, Progress, Icon } from '../../components'
 import * as Yup from 'yup'
 import { Message } from 'semantic-ui-react'
 
@@ -81,21 +73,25 @@ const Login: React.FC<Props> = props => {
         return (
           <Form onSubmit={handleSubmit}>
             <div
-              className="flex justify-center bg-blue-500 h-screen"
-              style={{ paddingTop: '10vh' }}
+              className="flex justify-center h-screen"
+              style={{ padding: '10vh 0', backgroundColor: '#f5f5f5' }}
             >
-              <div className="w-1/2">
-                <h1 className="text-5xl text-center mb-2 text-white">
-                  Log in to your board
+              <div
+                className="w-1/3 bg-white px-12 shadow-2xl rounded text-gray-700 self-center"
+                style={{ minWidth: '400px' }}
+              >
+                <h1 className="text-3xl text-center mb-4 pt-12 text-center">
+                  Welcome
                 </h1>
-                {/* <h2 className="text-2xl mb-2">to get access to your board</h2> */}
+                <p className="mb-4 text-center">
+                  Log in to continue using your board
+                </p>
                 <Form.Field>
-                  <Label pointing="below" htmlFor="email">
-                    Your Email
-                  </Label>
                   <Input
                     id="email"
                     type="email"
+                    icon="mail"
+                    iconPosition="left"
                     placeholder="Your email..."
                     value={values.email}
                     onChange={handleChange}
@@ -109,12 +105,11 @@ const Login: React.FC<Props> = props => {
                 </Form.Field>
                 <Divider />
                 <Form.Field>
-                  <Label pointing="below" htmlFor="password">
-                    Your Password
-                  </Label>
                   <Input
                     id="password"
                     type="password"
+                    icon="lock"
+                    iconPosition="left"
                     placeholder="Your password..."
                     value={values.password}
                     onChange={handleChange}
@@ -134,8 +129,13 @@ const Login: React.FC<Props> = props => {
                 >
                   Reset
                 </Button> */}
-                <Button type="submit" disabled={isSubmitting || !isValid}>
-                  Submit
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !isValid}
+                  fluid
+                  color="green"
+                >
+                  Continue
                 </Button>
 
                 <Message icon info size="tiny">
@@ -150,25 +150,26 @@ const Login: React.FC<Props> = props => {
                         <pre>testdrive@react-trello.now.sh</pre>
                         <pre>testdrive</pre>
                       </div>
-                      <Button
-                        className="self-start"
-                        color="blue"
-                        onClick={() =>
-                          resetForm({
-                            values: {
-                              email: 'testdrive@react-trello.now.sh',
-                              password: 'testdrive',
-                            },
-                          })
-                        }
-                      >
-                        Try out
-                      </Button>
                     </div>
                   </Message.Content>
                 </Message>
+                {/* <Button
+                  className="self-start"
+                  // color="blue"
+                  fluid
+                  onClick={() =>
+                    resetForm({
+                      values: {
+                        email: 'testdrive@react-trello.now.sh',
+                        password: 'testdrive',
+                      },
+                    })
+                  }
+                >
+                  Try out
+                </Button> */}
 
-                <h2 className="text-2xl mt-8">
+                <h2 className="text-2xl mt-8 pb-8">
                   Or{' '}
                   <Link to="/signup" className="text-blue underline">
                     sign up
