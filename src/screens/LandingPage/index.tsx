@@ -1,26 +1,15 @@
 import React from 'react'
 
-import { useSpring, animated } from 'react-spring'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
 
 import { Button } from '../../components'
-import Hero from './dev.svg'
+import HeroSvg from './HeroSvg'
 import { DEMO_USERNAME, DEMO_PASSWORD } from '../../utils'
 
 type Props = {} & RouteComponentProps
 
 const LandingPage: React.FC<Props> = props => {
-  // @ts-ignore
-  const { radians } = useSpring({
-    to: async (next: any) => {
-      while (1) await next({ radians: 2 * Math.PI })
-    },
-    from: { radians: 0 },
-    config: { duration: 3500 },
-    reset: true,
-  })
-
   const handleDemoLogin = async () => {
     try {
       await Auth.signIn(DEMO_USERNAME, DEMO_PASSWORD)
@@ -65,20 +54,7 @@ const LandingPage: React.FC<Props> = props => {
             </Button>
           </div>
           <div className="right flex justify-end" style={{ flex: 6 }}>
-            {/* <picture> */}
-            <animated.div
-              style={{
-                width: '85%',
-                transform: radians.interpolate(
-                  (r: any) =>
-                    `translate3d(0, ${5 *
-                      Math.sin(r + (2 * Math.PI) / 1.6)}px, 0)`
-                ),
-              }}
-            >
-              <img src={Hero} alt="" style={{}} />
-            </animated.div>
-            {/* </picture> */}
+            <HeroSvg />
           </div>
         </div>
       </section>
