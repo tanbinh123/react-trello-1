@@ -22,7 +22,7 @@ const LandingPage: React.FC<Props> = props => {
   return (
     <div>
       <section
-        className="hero px-12"
+        className="hero px-24"
         style={{ height: '100vh', backgroundColor: '#f8faff' }}
       >
         <header className="flex justify-between py-5">
