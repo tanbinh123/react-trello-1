@@ -65,6 +65,7 @@ const Timer: React.FC = () => {
               color="blue"
               data-testid="button-pause"
               onClick={handlePause}
+              style={{ cursor: 'pointer' }}
             />
             <Icon
               name="stop"
@@ -72,6 +73,7 @@ const Timer: React.FC = () => {
               color="blue"
               data-testid="button-stop"
               onClick={handleStop}
+              style={{ cursor: 'pointer' }}
             />
           </>
         ) : (
@@ -82,6 +84,7 @@ const Timer: React.FC = () => {
               color="blue"
               data-testid="button-play"
               onClick={handlePlay}
+              style={{ cursor: 'pointer' }}
             />
             <Icon
               name="stop"
@@ -89,6 +92,7 @@ const Timer: React.FC = () => {
               color="blue"
               data-testid="button-stop"
               onClick={handleStop}
+              style={{ cursor: 'pointer' }}
             />
           </>
         )}
