@@ -13,7 +13,7 @@ I use this project to play around with some technologies. Namely:
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 - [AWS Amplify](https://github.com/aws-amplify/amplify-cli) for the backend, GraphQL API and Auth
 - [Apollo Hooks](https://www.apollographql.com/docs/react/api/react-hooks/) as a GraphQL client
-- [Cypress](https://www.cypress.io/) for End-to-end testing
+- [React Spring](https://www.react-spring.io/) for animations
 
 ### Usage
 
