@@ -12,8 +12,8 @@ describe('Login Page', () => {
     cy.location('pathname').should('be', '/login')
   })
 
-  it('Should login via login button', () => {
-    cy.contains('Log in').click()
+  it('Should login via Sign in button', () => {
+    cy.contains(/sign in/i).click()
 
     cy.get('input[type="email"]').type(username)
     cy.get('input[type="password"]').type(password)
