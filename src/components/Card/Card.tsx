@@ -10,22 +10,17 @@ import { CardItem } from '../../types'
 import { Loader } from 'semantic-ui-react'
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  // some basic styles to make the items look a bit nicer
-  // borderRadius: '5px',
-  // margin: `0 0 ${grid}px 0`,
   userSelect: 'none',
   maxWidth: '200px',
 
-  // change background colour if dragging
-  // background: isDragging ? 'lightgreen' : '#ffffff',
-
   // styles we need to apply on draggables
   ...draggableStyle,
+  cursor: 'pointer',
 })
 
 const getItemClasses = (isDragging: boolean, draggableStyle: any) =>
   `${
-    isDragging ? 'bg-green-500 shadow-lg' : 'bg-teal-100 shadow'
+    isDragging ? 'bg-green-500 shadow-lg' : 'bg-white hover:bg-gray-200 shadow'
   } rounded p-2 mt-2`
 
 const CardName = styled.div`
