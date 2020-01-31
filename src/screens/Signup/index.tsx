@@ -1,15 +1,15 @@
 import { Auth } from 'aws-amplify'
 import React, { useState } from 'react'
 import { Button, Divider, Form, Input } from '../../components'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, Link } from 'react-router-dom'
 
 const SignupWrapper: React.FC = ({ children }) => {
   return (
     <div
-      className="flex flex-1 flex-col items-center h-screen"
-      style={{ paddingTop: '10vh', backgroundColor: '#f5f5f5' }}
+      className="flex flex-1 flex-col items-center justify-center h-screen text-gray-700"
+      style={{ backgroundColor: '#f5f5f5' }}
     >
-      <div className="bg-white p-8 rounded shadow-2xl">{children}</div>
+      <div className="bg-white w-1/3 px-12 rounded shadow-2xl">{children}</div>
     </div>
   )
 }
@@ -116,6 +116,12 @@ const Signup: React.FC<Props> = props => {
             Continue
           </Button>
         </Form>
+        <h2 className="text-2xl mt-8 pb-8">
+          Or{' '}
+          <Link to="/login" className="text-blue underline">
+            log in
+          </Link>
+        </h2>
       </>
     )
   }
@@ -125,7 +131,8 @@ const Signup: React.FC<Props> = props => {
   }
   return (
     <SignupWrapper>
-      <h1 className=" text-3xl mb-2 text-center">Sign up</h1>
+      <h1 className=" text-3xl pt-12 mb-2 text-center">Sign up</h1>
+      <p className="mb-4 text-center">To create your own board</p>
       {newUser ? renderConfirmationForm() : renderForm()}
     </SignupWrapper>
   )
