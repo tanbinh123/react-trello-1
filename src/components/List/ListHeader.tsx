@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
 import { updateColumn, deleteColumn } from '../../graphql/mutations'
 import { Button, Popup } from '..'
-import { Form, Loader } from 'semantic-ui-react'
+import { Form, Loader, Input } from 'semantic-ui-react'
 
 interface HeaderProps {
   columnId: string
@@ -40,6 +40,15 @@ export const Header: React.FC<HeaderProps> = props => {
   const [editingName, setEditingName] = useState(name)
   const [updateColumnMutation] = useMutation(gql(updateColumn))
   const [deleteColumnMutation] = useMutation(gql(deleteColumn))
+  const myEl = useRef<any>()
+
+  // focusing ref is done here because input element is
+  // not in the dom when handleEditClick happens (conditional rendering)
+  useEffect(() => {
+    if (isEditing) {
+      myEl && myEl.current && myEl.current.focus()
+    }
+  }, [isEditing])
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -53,7 +62,7 @@ export const Header: React.FC<HeaderProps> = props => {
     }
   }
 
-  const handleDoubleClick = () => {
+  const handleEditClick = () => {
     setEditing(true)
   }
 
@@ -76,7 +85,8 @@ export const Header: React.FC<HeaderProps> = props => {
     <MyHeader isDragging={isDragging} {...dragHandleProps}>
       {isEditing && (
         <Form onSubmit={handleSubmit}>
-          <Form.Input
+          <Input
+            ref={myEl}
             loading={loading}
             value={editingName}
             onChange={e => {
@@ -88,7 +98,7 @@ export const Header: React.FC<HeaderProps> = props => {
       )}
       {!isEditing && (
         <span
-          onDoubleClick={handleDoubleClick}
+          onClick={handleEditClick}
           style={{
             display: 'flex',
             alignItems: 'center',
