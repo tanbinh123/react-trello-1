@@ -1,7 +1,10 @@
-import { Auth } from 'aws-amplify'
 import React, { useState } from 'react'
-import { Button, Divider, Form, Input } from '../../components'
+
+import { Auth } from 'aws-amplify'
 import { RouteComponentProps, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+
+import { Button, Divider, Form, Input } from '../../components'
 
 const SignupWrapper: React.FC = ({ children }) => {
   return (
@@ -131,6 +134,9 @@ const Signup: React.FC<Props> = props => {
   }
   return (
     <SignupWrapper>
+      <Helmet>
+        <title>Sign Up | Definitely not Trello</title>
+      </Helmet>
       <h1 className=" text-3xl pt-12 mb-2 text-center">Sign up</h1>
       <p className="mb-4 text-center">To create your own board</p>
       {newUser ? renderConfirmationForm() : renderForm()}
