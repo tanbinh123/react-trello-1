@@ -18,6 +18,7 @@ import {
   UpdateColumnMutation,
   UpdateColumnMutationVariables,
 } from '../../API'
+import { Helmet } from 'react-helmet-async'
 
 const Board: React.FC = () => {
   const { data, loading, error, refetch } = useQuery<ListColumnsQuery>(
@@ -92,6 +93,9 @@ const Board: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Your Board | Definitely not Trello</title>
+      </Helmet>
       <div className="flex overflow-x-auto mt-2">
         <DragDropContext
           // onDragStart={this.onDragStart}

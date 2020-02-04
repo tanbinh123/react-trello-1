@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify'
 import { Button } from '../../components'
 import HeroSvg from './HeroSvg'
 import { DEMO_USERNAME, DEMO_PASSWORD } from '../../utils'
+import { Helmet } from 'react-helmet-async'
 
 type Props = {} & RouteComponentProps
 
@@ -21,6 +22,9 @@ const LandingPage: React.FC<Props> = props => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Buy now! | Definitely not Trello</title>
+      </Helmet>
       <section
         className="hero px-24"
         style={{ height: '100vh', backgroundColor: '#f8faff' }}

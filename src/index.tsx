@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import 'whatwg-fetch'
 import Amplify, { Auth } from 'aws-amplify'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import 'semantic-ui-css/semantic.min.css'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
@@ -38,19 +38,21 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <div>
-      <Helmet>
-        <title>Definitely Not Trello</title>
-      </Helmet>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/signup" exact component={Signup} />
-          <ProtectedRoute path="/app" exact component={App} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <HelmetProvider context={{}}>
+      <div>
+        <Helmet>
+          <title>Definitely Not Trello</title>
+        </Helmet>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/signup" exact component={Signup} />
+            <ProtectedRoute path="/app" exact component={App} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </HelmetProvider>
   </ApolloProvider>,
   document.getElementById('root')
 )
